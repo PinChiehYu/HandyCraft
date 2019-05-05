@@ -36,4 +36,14 @@ public class KeyboardInput : IInput
         Vector3 result = new Vector3(-1 * Input.GetAxisRaw("Mouse Y"), 0f, 0f);
         return result;
     }
+
+    public bool GetJump()
+    {
+        return Input.GetKeyDown(KeyCode.Space);
+    }
+
+    public bool GetFire()
+    {
+        return Input.GetButtonDown("Fire1");
+    }
 }

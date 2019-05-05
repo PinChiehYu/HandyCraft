@@ -8,4 +8,6 @@ public interface IInput
     Vector3 GetMovement();
     Vector3 GetBodyRotation();
     Vector3 GetHeadRotation();
+    bool GetJump();
+    bool GetFire();
 }

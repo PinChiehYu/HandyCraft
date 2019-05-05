@@ -15,6 +15,8 @@ public class PlayerMotor : MonoBehaviour
     private float movementSpeed;
     [SerializeField]
     private float rotationSpeed;
+    [SerializeField]
+    private float jumpForce;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,5 +45,10 @@ public class PlayerMotor : MonoBehaviour
     public void SetHeadRotation(Vector3 rotation)
     {
         _headRotation = rotation;
+    }
+
+    public void Jump()
+    {
+        _rigibody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 }
