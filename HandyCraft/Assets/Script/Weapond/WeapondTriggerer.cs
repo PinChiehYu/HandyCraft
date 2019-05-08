@@ -12,7 +12,7 @@ public class WeapondTriggerer : MonoBehaviour
     void Start()
     {
         _muzzleFire = GetComponentInChildren<ParticleSystem>();
-        _shoot.shootEvent += Trigger;
+        _shoot.OnShoot += Trigger;
     }
 
     // Update is called once per frame

@@ -8,12 +8,14 @@ public class EnemyController : MonoBehaviour
     [SerializeField]
     private float _detectRange;
     private EnemyMotor _motor;
+    private CharInfo _charInfo;
 
     private Transform _playerTrans;
 
     void Start()
     {
         _motor = GetComponent<EnemyMotor>();
+        _charInfo = GetComponent<CharInfo>();
         _playerTrans = GameObject.Find("Player").transform;
     }
 
@@ -34,11 +36,12 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void GetShoot(float damage, Vector3 hitPoint)
+    public void GetShoot(int damage, Vector3 hitPoint)
     {
         Vector3 stepBack = transform.position - hitPoint;
         stepBack.y = 0;
         stepBack.Normalize();
         _motor.AddForce(stepBack, damage);
+        _charInfo.ReceiveDamage(damage);
     }
 }

@@ -16,3 +16,4 @@ MonoBehaviour:
   Damage: 5
   Range: 10
   Cooldown: 0.5
+  FireSound: {fileID: 8300000, guid: 0c6a300ff9128e14098f9e13c3eab27e, type: 3}

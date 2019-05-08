@@ -9,6 +9,7 @@ public class PlayerShoot : MonoBehaviour
     private IInput _input;
     [SerializeField]
     private Camera _camera;
+    private AudioSource _audio;
 
     [SerializeField]
     private WeapondInfo _weapon; //Should be assign by another manager
@@ -17,12 +18,14 @@ public class PlayerShoot : MonoBehaviour
 
     private float _coolDown;
 
-    public event Action shootEvent;
+    public event Action OnShoot;
 
     void Start()
     {
         _input = new KeyboardInput(transform);
+        _audio = GetComponent<AudioSource>();
         _coolDown = 0f;
+        OnShoot += FireSound;
     }
 
     // Update is called once per frame
@@ -44,10 +47,15 @@ public class PlayerShoot : MonoBehaviour
             if (hit.collider.tag == "Enemy")
             {
                 hit.collider.GetComponent<EnemyController>().GetShoot(_weapon.Damage, hit.point);
-                Debug.Log("Hit! Object: " + hit.collider.name);
             }
         }
 
-        shootEvent?.Invoke();
+        OnShoot?.Invoke();
+    }
+
+    private void FireSound()
+    {
+        _audio.clip = _weapon.FireSound;
+        _audio.Play();
     }
 }

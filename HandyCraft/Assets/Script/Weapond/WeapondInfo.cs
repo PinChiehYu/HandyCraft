@@ -6,7 +6,8 @@ using UnityEngine;
 public class WeapondInfo : ScriptableObject
 {
     public string Name;
-    public float Damage;
+    public int Damage;
     public float Range;
     public float Cooldown;
+    public AudioClip FireSound;
 }
