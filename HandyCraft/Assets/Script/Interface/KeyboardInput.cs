@@ -44,6 +44,6 @@ public class KeyboardInput : IInput
 
     public bool GetFire()
     {
-        return Input.GetButtonDown("Fire1");
+        return Input.GetButton("Fire1");
     }
 }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   Name: Pistol
-  Damage: 10
+  Damage: 5
   Range: 10
   Cooldown: 0.5

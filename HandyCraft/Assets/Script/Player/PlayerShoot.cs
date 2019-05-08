@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ public class PlayerShoot : MonoBehaviour
     private LayerMask _hitMask;
 
     private float _coolDown;
+
+    public event Action shootEvent;
 
     void Start()
     {
@@ -44,5 +47,7 @@ public class PlayerShoot : MonoBehaviour
                 Debug.Log("Hit! Object: " + hit.collider.name);
             }
         }
+
+        shootEvent?.Invoke();
     }
 }
