@@ -10,6 +10,8 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField]
     private Camera _camera;
     private AudioSource _audio;
+    [SerializeField]
+    private GameObject _bulletHole;
 
     [SerializeField]
     private WeapondInfo _weapon; //Should be assign by another manager
@@ -48,6 +50,11 @@ public class PlayerShoot : MonoBehaviour
             {
                 hit.collider.GetComponent<EnemyController>().GetShoot(_weapon.Damage, hit.point);
             }
+            else
+            {
+                Instantiate(_bulletHole, hit.point, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+            }
+
         }
 
         OnShoot?.Invoke();

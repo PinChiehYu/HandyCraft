@@ -24,8 +24,6 @@ public class EnemyController : MonoBehaviour
     {
         if (Vector3.Distance(_playerTrans.position, transform.position) < _detectRange)
         {
-            Debug.Log("Detect!");
-
             Vector3 direction = _playerTrans.position - transform.position;
             direction.y = 0;
             _motor.SetBodyMovement(direction);
