@@ -8,125 +8,175 @@ ModelImporter:
     second: Take 001
   externalObjects:
   - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Part_Cavity
+    second: {fileID: 2100000, guid: 7c7f6d6c45b2eb743ad9def421c34722, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Part_DownTeeth
+    second: {fileID: 2100000, guid: b7de227549192ff4cbac158b9c30a7d8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Part_Eyewinker
+    second: {fileID: 2100000, guid: 992eceaee968fc648a9567922b3ad476, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Part_Iris
+    second: {fileID: 2100000, guid: b6d8f2d07fc082b4f9cc1725ecb3656d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Part_Lower
+    second: {fileID: 2100000, guid: 94154032ae98a9b40bbadbc5c43d58e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Part_Shoes
+    second: {fileID: 2100000, guid: fd9046521e5cc3944a15c00210d650ba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Part_Tongue
+    second: {fileID: 2100000, guid: 76e2930a2d512b8499d894e411445e2b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Part_Upper
+    second: {fileID: 2100000, guid: f62c51772db8caf47a4f009615c0abc8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Part_UpperTeeth
+    second: {fileID: 2100000, guid: 2821c65dc04fcc546a4ae02a6fe1102b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RL_Skin
+    second: {fileID: 2100000, guid: 1c3938c7aa7b751458edeff500b79d9f, type: 2}
+  - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: 23
-    second: {fileID: 2800000, guid: 841b39b07e24efe4a81404097b9019b6, type: 3}
+    second: {fileID: 2800000, guid: 9880c524c4053c64ebbcbff77abe515a, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: 24
-    second: {fileID: 2800000, guid: 0efa6d457b65a3d448a888148ae36cd4, type: 3}
+    second: {fileID: 2800000, guid: 6994cbd057411034b87bbcdfd9b49fb2, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: 25
-    second: {fileID: 2800000, guid: e53d059586538a0448545e4afdb275d2, type: 3}
+    second: {fileID: 2800000, guid: 275261f73c2226c499fb48a8216f62fa, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: 26
-    second: {fileID: 2800000, guid: 01b89b1f0cdce76489b903c17c77086c, type: 3}
+    second: {fileID: 2800000, guid: 40d8a8501ef47a84487f95c330950488, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: 28
-    second: {fileID: 2800000, guid: 022b83d5f6b88124e984908122870cd9, type: 3}
+    second: {fileID: 2800000, guid: 5d440321be9810f408db25f1a592517c, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: 29
-    second: {fileID: 2800000, guid: 7cfc7be86c5f6c54fa2aae00c9c04139, type: 3}
+    second: {fileID: 2800000, guid: 96d5192d4541d9a46a9b4f34e5ef3941, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: 30
-    second: {fileID: 2800000, guid: d822f0ce1fc93d140b13a43b762ae066, type: 3}
+    second: {fileID: 2800000, guid: 4c2d794e01c2a0e48b53cb165c941c22, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: 31
-    second: {fileID: 2800000, guid: 73b5828af9dee1b4898bdda8d00c4f47, type: 3}
+    second: {fileID: 2800000, guid: 186d7809a37d35448960ea117108f1c2, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: 32
-    second: {fileID: 2800000, guid: 1b6ca2fb0f2eda245bfa8557b87316ef, type: 3}
+    second: {fileID: 2800000, guid: 01afcd55c630c3745a9d443e90ee1976, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: 33
-    second: {fileID: 2800000, guid: 72b5af8f16fa6184fbdc3e4a7feb6d84, type: 3}
+    second: {fileID: 2800000, guid: 2666670aa1c071846b32ee189ba02098, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: 34
-    second: {fileID: 2800000, guid: b8558d2044b76cb4381148db11fcd8d2, type: 3}
+    second: {fileID: 2800000, guid: 041185a49ec622248822babc72063843, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FbxTemp_0001
-    second: {fileID: 2800000, guid: a4296314b4577bb4f8a48912831a995c, type: 3}
+    second: {fileID: 2800000, guid: 29c8699336d298744ba9e3b60f10c36d, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FbxTemp_0002
-    second: {fileID: 2800000, guid: d7bd11ff685a8044fac11e8a71b201ae, type: 3}
+    second: {fileID: 2800000, guid: 319548e8ac65c9a478800cca0db3bdae, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FbxTemp_0007
-    second: {fileID: 2800000, guid: 6a79ab9c278d18a44ae78fe27905f381, type: 3}
+    second: {fileID: 2800000, guid: 3059f0a16f72d06428a7dc1cbbfd789b, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FbxTemp_0009
-    second: {fileID: 2800000, guid: 3a532a1fcc87e284f81ab31e6335f4c4, type: 3}
+    second: {fileID: 2800000, guid: ccc8d271496422f4486553dc50a673e4, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FbxTemp_0010
-    second: {fileID: 2800000, guid: 2f680aabbf88a2e44a9dcb77e25ffbaf, type: 3}
+    second: {fileID: 2800000, guid: dbfb0e5530de0c64eb0478c68bd5e929, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FbxTemp_0012
-    second: {fileID: 2800000, guid: 7d94ee09caf571e4e8d3a5c3d2ddc3b4, type: 3}
+    second: {fileID: 2800000, guid: d3f20cc234b19294695428a891a69b0e, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FbxTemp_0013
-    second: {fileID: 2800000, guid: e7093418bcc36e84ab9bdcfcab53eab8, type: 3}
+    second: {fileID: 2800000, guid: 9417784afb2b4534a8d3430cded25e92, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FbxTemp_0014
-    second: {fileID: 2800000, guid: a49da4b7962a3bb4da8330ca73441a79, type: 3}
+    second: {fileID: 2800000, guid: c569549ef4662e54b9a4baa2d266127b, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FbxTemp_0015
-    second: {fileID: 2800000, guid: f0c8bd2877eef0641886aa4f645a0d96, type: 3}
+    second: {fileID: 2800000, guid: 328a5c75a175edf428198efd22326412, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FbxTemp_0016
-    second: {fileID: 2800000, guid: 7e4c4a55ce7a5fa468145967c3f4841a, type: 3}
+    second: {fileID: 2800000, guid: 81bcf0af28cc12e409173dce605a7dba, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FbxTemp_0017
-    second: {fileID: 2800000, guid: 575fd1d15a0ce0245aed907bc81a64fc, type: 3}
+    second: {fileID: 2800000, guid: 85cb205f6333d2349816a7cd99b92967, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FbxTemp_0018
-    second: {fileID: 2800000, guid: ec8f716d3fa534646aebf6ff4eeca75f, type: 3}
+    second: {fileID: 2800000, guid: 00b5b4361a04c294e9e4cec56c99768c, type: 3}
   - first:
       type: UnityEngine:Texture2D
       assembly: UnityEngine.CoreModule
       name: FbxTemp_0019
-    second: {fileID: 2800000, guid: 69266a919da4ba34fba4eb73fd1ed03c, type: 3}
+    second: {fileID: 2800000, guid: 62259bc5df6f2764493b4bb085fb6a55, type: 3}
   materials:
     importMaterials: 1
     materialName: 0

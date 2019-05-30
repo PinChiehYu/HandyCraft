@@ -22,9 +22,11 @@ public class EnemyMotor : MonoBehaviour
     void FixedUpdate()
     {
         float magnitude = _bodyMovement.magnitude;
-        Quaternion rotation = Quaternion.LookRotation(_bodyMovement, Vector3.up);
-        _rigibody.MoveRotation(Quaternion.Slerp(transform.rotation, rotation, rotationSpeed / 100));
-        _rigibody.MovePosition(_rigibody.position + transform.forward * magnitude * movementSpeed * Time.fixedDeltaTime);
+        if (_bodyMovement.magnitude != 0) { 
+            Quaternion rotation = Quaternion.LookRotation(_bodyMovement, Vector3.up);
+            _rigibody.MoveRotation(Quaternion.Slerp(transform.rotation, rotation, rotationSpeed / 100));
+            _rigibody.MovePosition(_rigibody.position + transform.forward * magnitude * movementSpeed * Time.fixedDeltaTime);
+        }
     }
 
     public void SetBodyMovement(Vector3 movement)

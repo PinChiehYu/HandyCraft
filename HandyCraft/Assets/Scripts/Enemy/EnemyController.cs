@@ -16,7 +16,7 @@ public class EnemyController : MonoBehaviour
     {
         _motor = GetComponent<EnemyMotor>();
         _charInfo = GetComponent<CharInfo>();
-        _playerTrans = GameObject.Find("Player").transform;
+        _playerTrans = GameObject.FindWithTag("Player").transform;
     }
 
     // Update is called once per frame
@@ -34,7 +34,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void GetShoot(int damage, Vector3 hitPoint)
+    public void GetAttack(int damage, Vector3 hitPoint)
     {
         Vector3 stepBack = transform.position - hitPoint;
         stepBack.y = 0;

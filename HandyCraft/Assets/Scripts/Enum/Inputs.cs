@@ -1,4 +1,9 @@
 ﻿public enum Inputs
 {
-    SwitchWepond
+    None,
+    LeftHand,
+    RightHand,
+    BothHand,
+    OpenWeapondUI,
+    OpenOptionUI
 }
