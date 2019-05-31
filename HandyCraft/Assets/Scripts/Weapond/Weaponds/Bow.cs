@@ -1,30 +1,38 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteInEditMode]
 public class Bow : Weapond
 {
-    public Transform _attachedArrow;
-    public SkinnedMeshRenderer _bowMesh;
-    public float _blendMultiplier = 255f;
-    public GameObject _arrowPrefab;
+    public Transform attachedArrow;
+    public Animator animator;
+    private Vector3 arrowOriginePosition;
+    public float animationParam;
+    public GameObject arrowPrefab;
 
+    public float reloadPeriod;
     public float _maxShootSpeed;
     public AudioClip _fireSound;
-    private bool isNocked { get { return _attachedArrow.gameObject.activeSelf; } }
+    private bool isNocked { get { return attachedArrow.gameObject.activeSelf; } }
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+        arrowOriginePosition = attachedArrow.localPosition;
+    }
 
     float time;
     void Update()
     {
-        float distance = Vector3.Distance(transform.position, _attachedArrow.position);
-        _bowMesh.SetBlendShapeWeight(0, Mathf.Max(0, distance * _blendMultiplier));
+        UpdateBowStretching();
 
         if (!isNocked)
         {
             time += Time.deltaTime;
         }
-        if (time > 5f)
+        if (time > reloadPeriod)
         {
             time = 0f;
             NockArrow();
@@ -44,6 +52,12 @@ public class Bow : Weapond
     {
     }
 
+    private void UpdateBowStretching()
+    {
+        float distance = Vector3.Distance(arrowOriginePosition, attachedArrow.localPosition);
+        animator.Play(0, 0, distance / animationParam); // min/max:0.255/-0.225 length:0.48
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!isNocked && other.GetComponent<Arrow>())
@@ -55,8 +69,8 @@ public class Bow : Weapond
 
     public void ShootArrow()
     {
-        GameObject arrow = Instantiate(_arrowPrefab, transform.position, transform.rotation);
-        float distance = Vector3.Distance(transform.position, _attachedArrow.position);
+        GameObject arrow = Instantiate(arrowPrefab, transform.TransformPoint(arrowOriginePosition), transform.rotation);
+        float distance = Vector3.Distance(arrowOriginePosition, attachedArrow.localPosition);
 
         arrow.GetComponent<Rigidbody>().velocity = arrow.transform.forward * distance * _maxShootSpeed;
         arrow.GetComponent<Arrow>().Launch();
@@ -67,13 +81,13 @@ public class Bow : Weapond
 
     public void NockArrow()
     {
-        _attachedArrow.gameObject.SetActive(true);
+        attachedArrow.gameObject.SetActive(true);
     }
 
     public void UnnockArrow()
     {
-        _attachedArrow.localPosition = Vector3.zero;
-        _attachedArrow.gameObject.SetActive(false);
-        _bowMesh.SetBlendShapeWeight(0, 0);
+        attachedArrow.localPosition = arrowOriginePosition;
+        attachedArrow.gameObject.SetActive(false);
+        animator.Play(0, 0, 0);
     }
 }

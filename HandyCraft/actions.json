@@ -1,42 +1,42 @@
 {
   "actions": [
     {
-      "name": "/actions/default/in/InteractUI",
+      "name": "/actions/HandyCraft/in/InteractUI",
       "type": "boolean"
     },
     {
-      "name": "/actions/default/in/Teleport",
+      "name": "/actions/HandyCraft/in/Teleport",
       "type": "vector2"
     },
     {
-      "name": "/actions/default/in/Grab",
+      "name": "/actions/HandyCraft/in/Grab",
       "type": "boolean"
     },
     {
-      "name": "/actions/default/in/Pose",
+      "name": "/actions/HandyCraft/in/Pose",
       "type": "pose"
     },
     {
-      "name": "/actions/default/in/SkeletonLeftHand",
+      "name": "/actions/HandyCraft/in/SkeletonLeftHand",
       "type": "skeleton",
       "skeleton": "/skeleton/hand/left"
     },
     {
-      "name": "/actions/default/in/SkeletonRightHand",
+      "name": "/actions/HandyCraft/in/SkeletonRightHand",
       "type": "skeleton",
       "skeleton": "/skeleton/hand/right"
     },
     {
-      "name": "/actions/default/in/HeadsetOnHead",
+      "name": "/actions/HandyCraft/in/HeadsetOnHead",
       "type": "boolean",
       "requirement": "optional"
     },
     {
-      "name": "/actions/default/in/OpenUI",
+      "name": "/actions/HandyCraft/in/OpenUI",
       "type": "boolean"
     },
     {
-      "name": "/actions/default/out/Haptic",
+      "name": "/actions/HandyCraft/out/Haptic",
       "type": "vibration"
     },
     {
@@ -71,7 +71,7 @@
   ],
   "action_sets": [
     {
-      "name": "/actions/default",
+      "name": "/actions/HandyCraft",
       "usage": "single"
     },
     {
@@ -87,57 +87,11 @@
       "usage": "single"
     }
   ],
-  "default_bindings": [
-    {
-      "controller_type": "vive_controller",
-      "binding_url": "bindings_vive_controller.json"
-    },
-    {
-      "controller_type": "oculus_touch",
-      "binding_url": "bindings_oculus_touch.json"
-    },
-    {
-      "controller_type": "knuckles",
-      "binding_url": "bindings_knuckles.json"
-    },
-    {
-      "controller_type": "holographic_controller",
-      "binding_url": "bindings_holographic_controller.json"
-    },
-    {
-      "controller_type": "vive",
-      "binding_url": "binding_vive.json"
-    },
-    {
-      "controller_type": "vive_pro",
-      "binding_url": "binding_vive_pro.json"
-    },
-    {
-      "controller_type": "rift",
-      "binding_url": "binding_rift.json"
-    },
-    {
-      "controller_type": "holographic_hmd",
-      "binding_url": "binding_holographic_hmd.json"
-    },
-    {
-      "controller_type": "vive_tracker_camera",
-      "binding_url": "binding_vive_tracker_camera.json"
-    }
-  ],
+  "default_bindings": [],
   "localization": [
     {
       "language_tag": "en_US",
-      "/actions/default/in/HeadsetOnHead": "Headset on head (proximity sensor)",
-      "/actions/default/in/InteractUI": "Interact With UI",
-      "/actions/default/in/Pose": "Pose",
-      "/actions/default/in/SkeletonLeftHand": "Skeleton (Left)",
-      "/actions/default/in/SkeletonRightHand": "Skeleton (Right)",
-      "/actions/default/in/Teleport": "Teleport",
-      "/actions/default/out/Haptic": "Haptic",
-      "/actions/platformer/in/Jump": "Jump",
-      "/actions/default/in/Grab": "Grab",
-      "/actions/default/in/OpenUI": "OpenUI"
+      "/actions/platformer/in/Jump": "Jump"
     }
   ]
 }

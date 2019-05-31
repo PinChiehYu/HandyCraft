@@ -17,23 +17,23 @@ namespace Valve.VR
     public partial class SteamVR_Actions
     {
         
-        private static SteamVR_Action_Boolean p_default_InteractUI;
+        private static SteamVR_Action_Boolean p_handyCraft_InteractUI;
         
-        private static SteamVR_Action_Vector2 p_default_Teleport;
+        private static SteamVR_Action_Vector2 p_handyCraft_Teleport;
         
-        private static SteamVR_Action_Boolean p_default_Grab;
+        private static SteamVR_Action_Boolean p_handyCraft_Grab;
         
-        private static SteamVR_Action_Pose p_default_Pose;
+        private static SteamVR_Action_Pose p_handyCraft_Pose;
         
-        private static SteamVR_Action_Skeleton p_default_SkeletonLeftHand;
+        private static SteamVR_Action_Skeleton p_handyCraft_SkeletonLeftHand;
         
-        private static SteamVR_Action_Skeleton p_default_SkeletonRightHand;
+        private static SteamVR_Action_Skeleton p_handyCraft_SkeletonRightHand;
         
-        private static SteamVR_Action_Boolean p_default_HeadsetOnHead;
+        private static SteamVR_Action_Boolean p_handyCraft_HeadsetOnHead;
         
-        private static SteamVR_Action_Boolean p_default_OpenUI;
+        private static SteamVR_Action_Boolean p_handyCraft_OpenUI;
         
-        private static SteamVR_Action_Vibration p_default_Haptic;
+        private static SteamVR_Action_Vibration p_handyCraft_Haptic;
         
         private static SteamVR_Action_Vector2 p_platformer_Move;
         
@@ -49,75 +49,75 @@ namespace Valve.VR
         
         private static SteamVR_Action_Pose p_mixedreality_ExternalCamera;
         
-        public static SteamVR_Action_Boolean default_InteractUI
+        public static SteamVR_Action_Boolean handyCraft_InteractUI
         {
             get
             {
-                return SteamVR_Actions.p_default_InteractUI.GetCopy<SteamVR_Action_Boolean>();
+                return SteamVR_Actions.p_handyCraft_InteractUI.GetCopy<SteamVR_Action_Boolean>();
             }
         }
         
-        public static SteamVR_Action_Vector2 default_Teleport
+        public static SteamVR_Action_Vector2 handyCraft_Teleport
         {
             get
             {
-                return SteamVR_Actions.p_default_Teleport.GetCopy<SteamVR_Action_Vector2>();
+                return SteamVR_Actions.p_handyCraft_Teleport.GetCopy<SteamVR_Action_Vector2>();
             }
         }
         
-        public static SteamVR_Action_Boolean default_Grab
+        public static SteamVR_Action_Boolean handyCraft_Grab
         {
             get
             {
-                return SteamVR_Actions.p_default_Grab.GetCopy<SteamVR_Action_Boolean>();
+                return SteamVR_Actions.p_handyCraft_Grab.GetCopy<SteamVR_Action_Boolean>();
             }
         }
         
-        public static SteamVR_Action_Pose default_Pose
+        public static SteamVR_Action_Pose handyCraft_Pose
         {
             get
             {
-                return SteamVR_Actions.p_default_Pose.GetCopy<SteamVR_Action_Pose>();
+                return SteamVR_Actions.p_handyCraft_Pose.GetCopy<SteamVR_Action_Pose>();
             }
         }
         
-        public static SteamVR_Action_Skeleton default_SkeletonLeftHand
+        public static SteamVR_Action_Skeleton handyCraft_SkeletonLeftHand
         {
             get
             {
-                return SteamVR_Actions.p_default_SkeletonLeftHand.GetCopy<SteamVR_Action_Skeleton>();
+                return SteamVR_Actions.p_handyCraft_SkeletonLeftHand.GetCopy<SteamVR_Action_Skeleton>();
             }
         }
         
-        public static SteamVR_Action_Skeleton default_SkeletonRightHand
+        public static SteamVR_Action_Skeleton handyCraft_SkeletonRightHand
         {
             get
             {
-                return SteamVR_Actions.p_default_SkeletonRightHand.GetCopy<SteamVR_Action_Skeleton>();
+                return SteamVR_Actions.p_handyCraft_SkeletonRightHand.GetCopy<SteamVR_Action_Skeleton>();
             }
         }
         
-        public static SteamVR_Action_Boolean default_HeadsetOnHead
+        public static SteamVR_Action_Boolean handyCraft_HeadsetOnHead
         {
             get
             {
-                return SteamVR_Actions.p_default_HeadsetOnHead.GetCopy<SteamVR_Action_Boolean>();
+                return SteamVR_Actions.p_handyCraft_HeadsetOnHead.GetCopy<SteamVR_Action_Boolean>();
             }
         }
         
-        public static SteamVR_Action_Boolean default_OpenUI
+        public static SteamVR_Action_Boolean handyCraft_OpenUI
         {
             get
             {
-                return SteamVR_Actions.p_default_OpenUI.GetCopy<SteamVR_Action_Boolean>();
+                return SteamVR_Actions.p_handyCraft_OpenUI.GetCopy<SteamVR_Action_Boolean>();
             }
         }
         
-        public static SteamVR_Action_Vibration default_Haptic
+        public static SteamVR_Action_Vibration handyCraft_Haptic
         {
             get
             {
-                return SteamVR_Actions.p_default_Haptic.GetCopy<SteamVR_Action_Vibration>();
+                return SteamVR_Actions.p_handyCraft_Haptic.GetCopy<SteamVR_Action_Vibration>();
             }
         }
         
@@ -180,15 +180,15 @@ namespace Valve.VR
         private static void InitializeActionArrays()
         {
             Valve.VR.SteamVR_Input.actions = new Valve.VR.SteamVR_Action[] {
-                    SteamVR_Actions.default_InteractUI,
-                    SteamVR_Actions.default_Teleport,
-                    SteamVR_Actions.default_Grab,
-                    SteamVR_Actions.default_Pose,
-                    SteamVR_Actions.default_SkeletonLeftHand,
-                    SteamVR_Actions.default_SkeletonRightHand,
-                    SteamVR_Actions.default_HeadsetOnHead,
-                    SteamVR_Actions.default_OpenUI,
-                    SteamVR_Actions.default_Haptic,
+                    SteamVR_Actions.handyCraft_InteractUI,
+                    SteamVR_Actions.handyCraft_Teleport,
+                    SteamVR_Actions.handyCraft_Grab,
+                    SteamVR_Actions.handyCraft_Pose,
+                    SteamVR_Actions.handyCraft_SkeletonLeftHand,
+                    SteamVR_Actions.handyCraft_SkeletonRightHand,
+                    SteamVR_Actions.handyCraft_HeadsetOnHead,
+                    SteamVR_Actions.handyCraft_OpenUI,
+                    SteamVR_Actions.handyCraft_Haptic,
                     SteamVR_Actions.platformer_Move,
                     SteamVR_Actions.platformer_Jump,
                     SteamVR_Actions.buggy_Steering,
@@ -197,14 +197,14 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Reset,
                     SteamVR_Actions.mixedreality_ExternalCamera};
             Valve.VR.SteamVR_Input.actionsIn = new Valve.VR.ISteamVR_Action_In[] {
-                    SteamVR_Actions.default_InteractUI,
-                    SteamVR_Actions.default_Teleport,
-                    SteamVR_Actions.default_Grab,
-                    SteamVR_Actions.default_Pose,
-                    SteamVR_Actions.default_SkeletonLeftHand,
-                    SteamVR_Actions.default_SkeletonRightHand,
-                    SteamVR_Actions.default_HeadsetOnHead,
-                    SteamVR_Actions.default_OpenUI,
+                    SteamVR_Actions.handyCraft_InteractUI,
+                    SteamVR_Actions.handyCraft_Teleport,
+                    SteamVR_Actions.handyCraft_Grab,
+                    SteamVR_Actions.handyCraft_Pose,
+                    SteamVR_Actions.handyCraft_SkeletonLeftHand,
+                    SteamVR_Actions.handyCraft_SkeletonRightHand,
+                    SteamVR_Actions.handyCraft_HeadsetOnHead,
+                    SteamVR_Actions.handyCraft_OpenUI,
                     SteamVR_Actions.platformer_Move,
                     SteamVR_Actions.platformer_Jump,
                     SteamVR_Actions.buggy_Steering,
@@ -213,36 +213,36 @@ namespace Valve.VR
                     SteamVR_Actions.buggy_Reset,
                     SteamVR_Actions.mixedreality_ExternalCamera};
             Valve.VR.SteamVR_Input.actionsOut = new Valve.VR.ISteamVR_Action_Out[] {
-                    SteamVR_Actions.default_Haptic};
+                    SteamVR_Actions.handyCraft_Haptic};
             Valve.VR.SteamVR_Input.actionsVibration = new Valve.VR.SteamVR_Action_Vibration[] {
-                    SteamVR_Actions.default_Haptic};
+                    SteamVR_Actions.handyCraft_Haptic};
             Valve.VR.SteamVR_Input.actionsPose = new Valve.VR.SteamVR_Action_Pose[] {
-                    SteamVR_Actions.default_Pose,
+                    SteamVR_Actions.handyCraft_Pose,
                     SteamVR_Actions.mixedreality_ExternalCamera};
             Valve.VR.SteamVR_Input.actionsBoolean = new Valve.VR.SteamVR_Action_Boolean[] {
-                    SteamVR_Actions.default_InteractUI,
-                    SteamVR_Actions.default_Grab,
-                    SteamVR_Actions.default_HeadsetOnHead,
-                    SteamVR_Actions.default_OpenUI,
+                    SteamVR_Actions.handyCraft_InteractUI,
+                    SteamVR_Actions.handyCraft_Grab,
+                    SteamVR_Actions.handyCraft_HeadsetOnHead,
+                    SteamVR_Actions.handyCraft_OpenUI,
                     SteamVR_Actions.platformer_Jump,
                     SteamVR_Actions.buggy_Brake,
                     SteamVR_Actions.buggy_Reset};
             Valve.VR.SteamVR_Input.actionsSingle = new Valve.VR.SteamVR_Action_Single[] {
                     SteamVR_Actions.buggy_Throttle};
             Valve.VR.SteamVR_Input.actionsVector2 = new Valve.VR.SteamVR_Action_Vector2[] {
-                    SteamVR_Actions.default_Teleport,
+                    SteamVR_Actions.handyCraft_Teleport,
                     SteamVR_Actions.platformer_Move,
                     SteamVR_Actions.buggy_Steering};
             Valve.VR.SteamVR_Input.actionsVector3 = new Valve.VR.SteamVR_Action_Vector3[0];
             Valve.VR.SteamVR_Input.actionsSkeleton = new Valve.VR.SteamVR_Action_Skeleton[] {
-                    SteamVR_Actions.default_SkeletonLeftHand,
-                    SteamVR_Actions.default_SkeletonRightHand};
+                    SteamVR_Actions.handyCraft_SkeletonLeftHand,
+                    SteamVR_Actions.handyCraft_SkeletonRightHand};
             Valve.VR.SteamVR_Input.actionsNonPoseNonSkeletonIn = new Valve.VR.ISteamVR_Action_In[] {
-                    SteamVR_Actions.default_InteractUI,
-                    SteamVR_Actions.default_Teleport,
-                    SteamVR_Actions.default_Grab,
-                    SteamVR_Actions.default_HeadsetOnHead,
-                    SteamVR_Actions.default_OpenUI,
+                    SteamVR_Actions.handyCraft_InteractUI,
+                    SteamVR_Actions.handyCraft_Teleport,
+                    SteamVR_Actions.handyCraft_Grab,
+                    SteamVR_Actions.handyCraft_HeadsetOnHead,
+                    SteamVR_Actions.handyCraft_OpenUI,
                     SteamVR_Actions.platformer_Move,
                     SteamVR_Actions.platformer_Jump,
                     SteamVR_Actions.buggy_Steering,
@@ -253,15 +253,15 @@ namespace Valve.VR
         
         private static void PreInitActions()
         {
-            SteamVR_Actions.p_default_InteractUI = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/InteractUI")));
-            SteamVR_Actions.p_default_Teleport = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/default/in/Teleport")));
-            SteamVR_Actions.p_default_Grab = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/Grab")));
-            SteamVR_Actions.p_default_Pose = ((SteamVR_Action_Pose)(SteamVR_Action.Create<SteamVR_Action_Pose>("/actions/default/in/Pose")));
-            SteamVR_Actions.p_default_SkeletonLeftHand = ((SteamVR_Action_Skeleton)(SteamVR_Action.Create<SteamVR_Action_Skeleton>("/actions/default/in/SkeletonLeftHand")));
-            SteamVR_Actions.p_default_SkeletonRightHand = ((SteamVR_Action_Skeleton)(SteamVR_Action.Create<SteamVR_Action_Skeleton>("/actions/default/in/SkeletonRightHand")));
-            SteamVR_Actions.p_default_HeadsetOnHead = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/HeadsetOnHead")));
-            SteamVR_Actions.p_default_OpenUI = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/default/in/OpenUI")));
-            SteamVR_Actions.p_default_Haptic = ((SteamVR_Action_Vibration)(SteamVR_Action.Create<SteamVR_Action_Vibration>("/actions/default/out/Haptic")));
+            SteamVR_Actions.p_handyCraft_InteractUI = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/HandyCraft/in/InteractUI")));
+            SteamVR_Actions.p_handyCraft_Teleport = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/HandyCraft/in/Teleport")));
+            SteamVR_Actions.p_handyCraft_Grab = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/HandyCraft/in/Grab")));
+            SteamVR_Actions.p_handyCraft_Pose = ((SteamVR_Action_Pose)(SteamVR_Action.Create<SteamVR_Action_Pose>("/actions/HandyCraft/in/Pose")));
+            SteamVR_Actions.p_handyCraft_SkeletonLeftHand = ((SteamVR_Action_Skeleton)(SteamVR_Action.Create<SteamVR_Action_Skeleton>("/actions/HandyCraft/in/SkeletonLeftHand")));
+            SteamVR_Actions.p_handyCraft_SkeletonRightHand = ((SteamVR_Action_Skeleton)(SteamVR_Action.Create<SteamVR_Action_Skeleton>("/actions/HandyCraft/in/SkeletonRightHand")));
+            SteamVR_Actions.p_handyCraft_HeadsetOnHead = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/HandyCraft/in/HeadsetOnHead")));
+            SteamVR_Actions.p_handyCraft_OpenUI = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/HandyCraft/in/OpenUI")));
+            SteamVR_Actions.p_handyCraft_Haptic = ((SteamVR_Action_Vibration)(SteamVR_Action.Create<SteamVR_Action_Vibration>("/actions/HandyCraft/out/Haptic")));
             SteamVR_Actions.p_platformer_Move = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/platformer/in/Move")));
             SteamVR_Actions.p_platformer_Jump = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/platformer/in/Jump")));
             SteamVR_Actions.p_buggy_Steering = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/buggy/in/Steering")));

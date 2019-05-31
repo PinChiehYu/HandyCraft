@@ -4,11 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
   - InteractionObject
-  - Controller
+  - FxTemporaire
+  - Enemy
   - Obstacle
-  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -20,7 +19,7 @@ TagManager:
   - 
   - PostProcessing
   - Obstacle
-  - Enemy
+  - Projectile
   - 
   - 
   - 

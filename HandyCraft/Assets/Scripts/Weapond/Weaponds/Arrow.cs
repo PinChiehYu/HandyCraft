@@ -12,7 +12,7 @@ public class Arrow : MonoBehaviour
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        trail = GetComponentInChildren<ParticleSystem>();
+        //trail = GetComponentInChildren<ParticleSystem>();
         _launched = false;
     }
 
@@ -31,7 +31,7 @@ public class Arrow : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        Debug.Log("Arrow Hit:" + other.name);
         if (other.CompareTag("Enemy") || other.CompareTag("Obstacle"))
         {
             GetStuck(other);
@@ -43,7 +43,7 @@ public class Arrow : MonoBehaviour
         _launched = false;
         _rigidbody.velocity = Vector3.zero;
         _rigidbody.isKinematic = true;
-        trail.Stop();
+        //trail.Stop();
         transform.SetParent(other.transform);
     }
 }

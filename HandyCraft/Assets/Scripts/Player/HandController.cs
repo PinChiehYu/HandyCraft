@@ -12,16 +12,18 @@ public class HandController : MonoBehaviour
 
     private IInput input;
 
-    private GameObject _touchingObject;
-    private bool isTouchingObject { get { return _touchingObject != null; } }
+    private GameObject touchingObject;
+    private bool isTouchingObject { get { return touchingObject != null; } }
 
     private SteamVR_Behaviour_Pose controllerPose;
+    private GameObject handModel;
 
     private void Awake()
     {
         controllerPose = GetComponent<SteamVR_Behaviour_Pose>();
         holdingObject = null;
-        _touchingObject = null;
+        touchingObject = null;
+        handModel = transform.Find("Model").gameObject;
     }
 
     private void Start()
@@ -64,6 +66,7 @@ public class HandController : MonoBehaviour
 
         if (prefab != null)
         {
+            SetHandModelDisplay(true);
             GameObject instance = Instantiate(prefab);
             instance.transform.SetParent(transform);
             instance.transform.localPosition = localPosition;
@@ -76,6 +79,10 @@ public class HandController : MonoBehaviour
                 holdingObject = instance.GetComponent<Weapond>();
                 (holdingObject as Weapond).ChangeToThisWeapond();
             }
+        }
+        else
+        {
+            SetHandModelDisplay(true);
         }
     }
 
@@ -96,29 +103,29 @@ public class HandController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (_touchingObject == other.gameObject)
+        if (touchingObject == other.gameObject)
         {
             Debug.Log(_handType.ToString() + " leave " + other.name);
-            _touchingObject = null;
+            touchingObject = null;
         }
     }
 
     private void TryTouchObject(Collider col)
     {
-        if (holdingObject == null && _touchingObject == null && col.GetComponent<IInteractable>() != null)
+        if (holdingObject == null && touchingObject == null && col.GetComponent<IInteractable>() != null)
         {
             Debug.Log(_handType.ToString() + " touch " + col.name);
-            _touchingObject = col.gameObject;
+            touchingObject = col.gameObject;
         }
     }
 
     private void HoldObject()
     {
-        holdingObject = _touchingObject.GetComponent<IInteractable>();
+        holdingObject = touchingObject.GetComponent<IInteractable>();
         if (holdingObject != null)
         {
             holdingObject.Pick(transform);
-            _touchingObject = null;
+            touchingObject = null;
         }
     }
 
@@ -133,5 +140,10 @@ public class HandController : MonoBehaviour
                 holdingObject = null;
             }
         }
+    }
+
+    private void SetHandModelDisplay(bool active)
+    {
+        handModel.SetActive(active);
     }
 }

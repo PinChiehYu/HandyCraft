@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Bow
   RightPrefab: {fileID: 0}
-  LeftPrefab: {fileID: 6245343727186878280, guid: dbc7adb2b20f2a14aaa2b2c5be7cc6d5,
-    type: 3}
+  LeftPrefab: {fileID: 173346, guid: 8637663db298ba54dab34a66df4bd9ca, type: 3}
   RightLocalPosition: {x: 0, y: 0, z: 0}
   RightLocalRotation: {x: 0, y: 0, z: 0}
   LeftLocalPosition: {x: 0, y: 0, z: 0.02}
