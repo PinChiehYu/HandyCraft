@@ -48,7 +48,7 @@ public class Bow : Weapond
     {   
     }
 
-    protected override void Fire()
+    protected override void Fire(Vector3 velocity, Vector3 angularVelocity)
     {
     }
 

@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
 
     private ViveInput viveInput;
+    public GlobalPPController PPController;
     public WeapondManager WeapondManager;
 
     public static GameManager Instance
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         viveInput = GetComponent<ViveInput>();
+        PPController = GetComponent<GlobalPPController>();
     }
 
     void Start()

@@ -4,22 +4,29 @@ using UnityEngine;
 
 public class Gun : Weapond
 {
-    public WeapondInfo _info;
     [SerializeField]
-    public float _shootDistance;
+    private float shootingRange;
     [SerializeField]
-    public LayerMask _hitLayer;
+    private LayerMask hitLayer;
+    [SerializeField]
+    private float reloadTime;
 
-    private Transform _firePoint;
-    private ParticleSystem _muzzleFire;
+    private Transform firePoint;
+    private ParticleSystem[] particles;
 
     [SerializeField]
-    private GameObject _hole;
+    private GameObject hole;
 
-    void Awake()
+    private void Awake()
     {
-        _firePoint = transform.Find("FirePoint");
-        _muzzleFire = transform.Find("MuzzleFire").GetComponent<ParticleSystem>();
+        firePoint = transform.Find("FirePoint");
+        particles = GetComponentsInChildren<ParticleSystem>();
+    }
+
+    private float timer;
+    private void Update()
+    {
+        timer += Time.deltaTime;
     }
 
     public override void ChangeToOtherWeapond()
@@ -32,21 +39,33 @@ public class Gun : Weapond
         return;
     }
 
-    protected override void Fire()
+    protected override void Fire(Vector3 velocity, Vector3 angularVelocity)
     {
+        if (timer < reloadTime) return;
+
         RaycastHit hit;
-        if (Physics.Raycast(_firePoint.position, _firePoint.forward, out hit, _shootDistance, _hitLayer))
+        if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, shootingRange, hitLayer))
         {
-            if (hit.collider.tag == "Enemy")
+            if (hit.transform.CompareTag("Enemy"))
             {
-                hit.collider.GetComponent<EnemyController>().GetAttack(10, hit.point);
+                hit.transform.GetComponentInParent<EnemyController>().GetAttack(10, hit.transform, hit.point);
             }
             else
             {
-                Instantiate(_hole, hit.point + hit.normal * 0.01f, Quaternion.FromToRotation(Vector3.forward, hit.normal));
+                Instantiate(hole, hit.point + hit.normal * 0.01f, Quaternion.FromToRotation(Vector3.forward, hit.normal));
             }
         }
 
-        _muzzleFire.Play();
+        TriggerParticle();
+        timer = 0f;
+    }
+
+    private void TriggerParticle()
+    {
+        if (particles.Length == 0) return;
+        foreach (ParticleSystem p in particles)
+        {
+            p.Play();
+        }
     }
 }

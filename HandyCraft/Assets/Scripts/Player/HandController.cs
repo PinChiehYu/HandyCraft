@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Valve.VR;
@@ -37,7 +38,7 @@ public class HandController : MonoBehaviour
         {
             if (holdingObject != null)
             {
-                holdingObject.Interact();
+                InteractWithObject();
             }
             else if (isTouchingObject)
             {
@@ -55,7 +56,6 @@ public class HandController : MonoBehaviour
         //clear old weapond
         if (holdingObject is Weapond weapond)
         {
-            Debug.Log(_handType.ToString() + ":" + weapond.gameObject.name);
             weapond.ChangeToOtherWeapond();
             holdingObject = null;
         }
@@ -78,6 +78,7 @@ public class HandController : MonoBehaviour
             {
                 holdingObject = instance.GetComponent<Weapond>();
                 (holdingObject as Weapond).ChangeToThisWeapond();
+                holdingObject.Pick(transform);
             }
         }
         else
@@ -117,6 +118,11 @@ public class HandController : MonoBehaviour
             Debug.Log(_handType.ToString() + " touch " + col.name);
             touchingObject = col.gameObject;
         }
+    }
+
+    private void InteractWithObject()
+    {
+        holdingObject.Interact(controllerPose.GetVelocity(), controllerPose.GetAngularVelocity());
     }
 
     private void HoldObject()

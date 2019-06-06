@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,40 +7,140 @@ public class EnemyController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    private float _detectRange;
-    private EnemyMotor _motor;
-    private CharInfo _charInfo;
+    private float detectRange;
+    [SerializeField]
+    private float attackRange;
+    [SerializeField]
+    private float speedupDelay;
+    [SerializeField]
+    private float attackCooldown;
 
-    private Transform _playerTrans;
+    private EnemyMotor motor;
+    private CharacterInfo charInfo;
+    private Animator animator;
 
-    void Start()
+    private Transform playerTrans;
+
+    private bool isDetected;
+    private bool isSpeedUp;
+    private bool isAttacking;
+    private bool isDead;
+
+    private float attackTimer;
+    private float speedUpTimer;
+
+    private void Awake()
     {
-        _motor = GetComponent<EnemyMotor>();
-        _charInfo = GetComponent<CharInfo>();
-        _playerTrans = GameObject.FindWithTag("Player").transform;
+        motor = GetComponent<EnemyMotor>();
+        charInfo = GetComponent<CharacterInfo>();
+        animator = GetComponent<Animator>();
+        isDetected = false;
+        isSpeedUp = false;
+        isAttacking = false;
+        isDead = false;
+        attackTimer = attackCooldown;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        if (Vector3.Distance(_playerTrans.position, transform.position) < _detectRange)
+        charInfo.OnDie += Dead;
+        playerTrans = GameObject.FindWithTag("Player").transform;
+    }
+
+    private void Update()
+    {
+        if (isDead) return;
+
+        float distance = Vector3.Distance(playerTrans.position, transform.position);
+        if (distance < attackRange)
         {
-            Vector3 direction = _playerTrans.position - transform.position;
-            direction.y = 0;
-            _motor.SetBodyMovement(direction);
+            AttackPlayer();
+        }
+        else if (distance < detectRange)
+        {
+            DetectPlayer();
         }
         else
         {
-            _motor.SetBodyMovement(Vector3.zero);
+            isDetected = false;
+            isAttacking = false;
+            CancleSpeedUp();
+            motor.SetBodyMovement(Vector3.zero);
+        }
+
+        UpdateAnimatorParameter();
+    }
+
+    private void AttackPlayer()
+    {
+        attackTimer += Time.deltaTime;
+        isAttacking = true;
+        CancleSpeedUp();
+        motor.SetBodyMovement(Vector3.zero);
+        if (attackTimer > attackCooldown)
+        {
+            animator.SetTrigger("Attack");
+            attackTimer = 0f;
         }
     }
 
-    public void GetAttack(int damage, Vector3 hitPoint)
+    private void CancleSpeedUp()
+    {
+        isSpeedUp = false;
+        motor.SpeedUp(false);
+        speedUpTimer = 0f;
+    }
+
+    private void DetectPlayer()
+    {
+        if (isAttacking && animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) return;
+
+        isAttacking = false;
+        Vector3 direction = playerTrans.position - transform.position;
+        direction.y = 0;
+        motor.SetBodyMovement(direction);
+        CheckSpeedUp();
+    }
+
+    private void CheckSpeedUp()
+    {
+        if (isDetected)
+        {
+            speedUpTimer += Time.deltaTime;
+            if (speedUpTimer > speedupDelay)
+            {
+                motor.SpeedUp(true);
+                isSpeedUp = true;
+            }
+        }
+        else
+        {
+            isDetected = true;
+            speedUpTimer = 0f;
+        }
+    }
+
+    private void UpdateAnimatorParameter()
+    {
+        animator.SetBool("IsDetected", isDetected);
+        animator.SetBool("IsSpeedUp", isSpeedUp);
+    }
+
+    public void GetAttack(int damage, Transform bodyPart, Vector3 hitPoint)
     {
         Vector3 stepBack = transform.position - hitPoint;
         stepBack.y = 0;
         stepBack.Normalize();
-        _motor.AddForce(stepBack, damage);
-        _charInfo.ReceiveDamage(damage);
+        motor.AddForce(stepBack, damage);
+        charInfo.ReceiveDamage(damage);
+        animator.SetTrigger("Hit");
+    }
+
+    private void Dead()
+    {
+        motor.Ragdoll(true);
+        animator.enabled = false;
+        motor.SetBodyMovement(Vector3.zero);
+        isDead = true;
     }
 }

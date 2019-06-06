@@ -5,22 +5,22 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     // Start is called before the first frame update
-    private Rigidbody _rigidbody;
+    private new Rigidbody rigidbody;
     private ParticleSystem trail;
     private bool _launched;
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
+        rigidbody = GetComponent<Rigidbody>();
         //trail = GetComponentInChildren<ParticleSystem>();
         _launched = false;
     }
 
     private void FixedUpdate()
     {
-        if (_launched && _rigidbody.velocity != Vector3.zero)
+        if (_launched && rigidbody.velocity != Vector3.zero)
         {
-            _rigidbody.rotation = Quaternion.LookRotation(_rigidbody.velocity);
+            rigidbody.rotation = Quaternion.LookRotation(rigidbody.velocity);
         }
     }
 
@@ -35,15 +35,19 @@ public class Arrow : MonoBehaviour
         if (other.CompareTag("Enemy") || other.CompareTag("Obstacle"))
         {
             GetStuck(other);
+            if (other.CompareTag("Enemy"))
+            {
+                other.GetComponentInParent<EnemyController>().GetAttack(10, other.transform, transform.position);
+            }
         }
     }
 
     private void GetStuck(Collider other)
     {
         _launched = false;
-        _rigidbody.velocity = Vector3.zero;
-        _rigidbody.isKinematic = true;
+        rigidbody.velocity = Vector3.zero;
+        GetComponent<Collider>().enabled = false;
         //trail.Stop();
-        transform.SetParent(other.transform);
+        gameObject.AddComponent<FixedJoint>().connectedBody = other.GetComponent<Rigidbody>();
     }
 }

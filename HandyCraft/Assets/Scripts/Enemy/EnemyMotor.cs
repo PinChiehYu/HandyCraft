@@ -4,38 +4,57 @@ using UnityEngine;
 
 public class EnemyMotor : MonoBehaviour
 {
-    private Rigidbody _rigibody;
+    private Rigidbody selfRb;
+    private Rigidbody[] rbs;
 
-    private Vector3 _bodyMovement;
+    private Vector3 bodyMovement;
 
     [SerializeField]
-    private float movementSpeed;
+    private float basicSpeed;
+    [SerializeField]
+    private float speedupSpeed;
+    private float currentSpeed;
     [SerializeField, Range(0.1f, 100f)]
     private float rotationSpeed;
 
-    void Start()
+    private void Awake()
     {
-        _rigibody = GetComponent<Rigidbody>();
+        selfRb = GetComponent<Rigidbody>();
+        rbs = GetComponentsInChildren<Rigidbody>();
+        currentSpeed = basicSpeed;
+        Ragdoll(false);
     }
 
-    // Start is called before the first frame update
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        float magnitude = _bodyMovement.magnitude;
-        if (_bodyMovement.magnitude != 0) { 
-            Quaternion rotation = Quaternion.LookRotation(_bodyMovement, Vector3.up);
-            _rigibody.MoveRotation(Quaternion.Slerp(transform.rotation, rotation, rotationSpeed / 100));
-            _rigibody.MovePosition(_rigibody.position + transform.forward * magnitude * movementSpeed * Time.fixedDeltaTime);
+        float magnitude = bodyMovement.magnitude;
+        if (magnitude != 0) { 
+            Quaternion rotation = Quaternion.LookRotation(bodyMovement, Vector3.up);
+            selfRb.MoveRotation(Quaternion.Slerp(transform.rotation, rotation, rotationSpeed / 100));
+            selfRb.MovePosition(selfRb.position + transform.forward * currentSpeed * Time.fixedDeltaTime);
         }
     }
 
     public void SetBodyMovement(Vector3 movement)
     {
-        _bodyMovement = movement;
+        bodyMovement = movement;
+    }
+
+    public void SpeedUp(bool state)
+    {
+        currentSpeed = state ? speedupSpeed : basicSpeed;
     }
 
     public void AddForce(Vector3 direction, float magnitude)
     {
-        _rigibody.AddForce(direction * magnitude, ForceMode.Impulse);
+        //rigibody.AddForce(direction * magnitude, ForceMode.Impulse);
+    }
+
+    public void Ragdoll(bool state)
+    {
+        foreach (Rigidbody rb in rbs)
+        {
+            rb.isKinematic = !state;
+        }
     }
 }

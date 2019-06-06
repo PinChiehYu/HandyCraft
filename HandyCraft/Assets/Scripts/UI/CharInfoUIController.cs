@@ -8,32 +8,32 @@ public class CharInfoUIController : MonoBehaviour
 {
     // Start is called before the first frame update
     private string _charName;
-    private CharInfo _info;
+    private CharacterInfo info;
 
     [SerializeField]
     private Image Fill;
     private TMP_Text name;
 
-    private int _maxHp;
-    private float _targetPersentage;
+    private int maxHp;
+    private float targetPersentage;
 
     void Awake()
     {
         name = transform.Find("Name").GetComponent<TMP_Text>();
-        name.text = transform.parent.name;
-        _info = GetComponentInParent<CharInfo>();
-        _info.OnHpChange += OnHpChange;
-        _maxHp = _info.GetMaxHp();
-        _targetPersentage = 1;
+        name.text = transform.root.name;
+        info = GetComponentInParent<CharacterInfo>();
+        info.OnHpChange += OnHpChange;
+        maxHp = info.GetMaxHp();
+        targetPersentage = 1;
     }
 
     void Update()
     {
-        Fill.fillAmount = Mathf.Lerp(Fill.fillAmount, _targetPersentage, 0.1f);
+        Fill.fillAmount = Mathf.Lerp(Fill.fillAmount, targetPersentage, 0.1f);
     }
 
     private void OnHpChange(int after)
     {
-        _targetPersentage = (float)after / _maxHp;
+        targetPersentage = (float)after / maxHp;
     }
 }

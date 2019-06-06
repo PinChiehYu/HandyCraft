@@ -5,6 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class Sword : Weapond
 {
+    [SerializeField]
+    private int damage;
+
     public override void ChangeToOtherWeapond()
     {
         Destroy(gameObject);
@@ -14,16 +17,15 @@ public class Sword : Weapond
     {
     }
 
-    protected override void Fire()
+    protected override void Fire(Vector3 velocity, Vector3 angularVelocity)
     {
     }
 
-    void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(collision.gameObject.name);
-        if (collision.gameObject.tag == "Enemy")
+        if (other.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<EnemyController>().GetAttack(10, collision.GetContact(0).point);
+            other.GetComponentInParent<EnemyController>().GetAttack(damage, other.transform, transform.position);
         }
     }
 }

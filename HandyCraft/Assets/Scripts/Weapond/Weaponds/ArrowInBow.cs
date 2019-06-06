@@ -24,7 +24,7 @@ public class ArrowInBow : MonoBehaviour, IInteractable
         drawingHand = hand;
     }
 
-    public void Interact()
+    public void Interact(Vector3 velocity, Vector3 angularVelocity)
     {
         if (drawingHand != null)
         {

@@ -7,43 +7,50 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
-    private IInput _input;
-    private PlayerMotor _motor;
+    private IInput input;
+    private PlayerMotor motor;
 
-    private Transform _foot;
+    private Transform foot;
     [SerializeField]
-    private LayerMask _groundMask;
+    private LayerMask groundMask;
 
-    private HandController _leftHand;
-    private HandController _rightHand;
+    private HandController leftHand;
+    private HandController rightHand;
 
-    private Canvas _optionUICanvas;
-    private Canvas _weapondUICanvas;
+    private CharacterInfo charInfo;
 
-    private bool _isOpenedOptionUI;
-    private bool _isOpenedWeapondUI;
+    private Canvas optionUICanvas;
+    private Canvas weapondUICanvas;
+
+    private bool isOpenedOptionUI;
+    private bool isOpenedWeapondUI;
+
+    private float maxStrength;
+    private float strength;
 
     private void Awake()
     {
-        _motor = GetComponent<PlayerMotor>();
-        _foot = transform.Find("Foot");
-        _leftHand = transform.Find("LeftController").GetComponent<HandController>();
-        _rightHand = transform.Find("RightController").GetComponent<HandController>();
+        motor = GetComponent<PlayerMotor>();
+        charInfo = GetComponent<CharacterInfo>();
+        foot = transform.Find("Foot");
 
-        _isOpenedOptionUI = false;
-        _isOpenedWeapondUI = false;
+        isOpenedOptionUI = false;
+        isOpenedWeapondUI = false;
     }
 
     private void Start()
     {
-        _input = GameManager.Instance.GetInputSource();
+        input = GameManager.Instance.GetInputSource();
+        leftHand = transform.Find("LeftController").GetComponent<HandController>();
+        rightHand = transform.Find("RightController").GetComponent<HandController>();
+        GameManager.Instance.PPController.BindPlayer(charInfo);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         CheckUIOperation();
-        if (!_isOpenedOptionUI && !_isOpenedWeapondUI)
+        if (!isOpenedOptionUI && !isOpenedWeapondUI)
         {
             UpdateMovement();
         }
@@ -52,51 +59,62 @@ public class PlayerController : MonoBehaviour
             StopMovement();
             CheckSwitchWeapond();
         }
+
+        ////for testing////
+        /*
+        timer += Time.deltaTime;
+        if (timer > 1f)
+        {
+            charInfo.ReceiveDamage(1);
+            timer = 0f;
+        }
+        */
+        //////////////////
     }
 
     private void UpdateMovement()
     {
-        _motor.SetBodyMovement(_input.GetMovement());
-        _motor.SetBodyRotation(_input.GetBodyRotation());
+        motor.SetBodyMovement(input.GetMovement());
+        motor.SetBodyRotation(input.GetBodyRotation());
 
-        if (_input.GetJump() && Physics.CheckBox(_foot.position, new Vector3(0.25f, 0.05f, 0.25f), Quaternion.identity, _groundMask))
+        if (input.GetJump() && Physics.CheckBox(foot.position, new Vector3(0.25f, 0.05f, 0.25f), Quaternion.identity, groundMask))
         {
-            _motor.Jump();
+            motor.Jump();
         }
     }
 
     private void StopMovement()
     {
-        _motor.SetBodyMovement(Vector3.zero);
+        motor.SetBodyMovement(Vector3.zero);
     }
 
     private void CheckUIOperation()
     {
-        Inputs inputs = _input.GetUIOperation();
+        Inputs inputs = input.GetUIOperation();
         if (inputs == Inputs.OpenOptionUI)
         {
-            if (_isOpenedWeapondUI)
+            if (isOpenedWeapondUI)
             {
-                _weapondUICanvas.enabled = false;
-                _isOpenedWeapondUI = false;
+                weapondUICanvas.enabled = false;
+                isOpenedWeapondUI = false;
             }
 
-            _isOpenedOptionUI = !_isOpenedOptionUI;
-            if (_isOpenedOptionUI)
+            isOpenedOptionUI = !isOpenedOptionUI;
+            if (isOpenedOptionUI)
             {
                 //_optionUICanvas.enabled = true;
             }
         }
         else if (inputs == Inputs.OpenWeapondUI)
         {
-            if (_isOpenedOptionUI)
+            if (isOpenedOptionUI)
             {
-                _optionUICanvas.enabled = false;
-                _isOpenedOptionUI = false;
+                optionUICanvas.enabled = false;
+                isOpenedOptionUI = false;
             }
 
-            _isOpenedWeapondUI = !_isOpenedWeapondUI;
-            if (_isOpenedWeapondUI)
+            isOpenedWeapondUI = !isOpenedWeapondUI;
+            if (isOpenedWeapondUI)
             {
                 //_weapondUICanvas.enabled = true;
             }
@@ -107,9 +125,9 @@ public class PlayerController : MonoBehaviour
     private void CheckSwitchWeapond()
     {
         cooldown += Time.deltaTime;
-        if (_isOpenedWeapondUI && cooldown > 0.5f)
+        if (isOpenedWeapondUI && cooldown > 0.5f)
         {
-            float way = _input.GetMovement().x;
+            float way = input.GetMovement().x;
             if (Mathf.Abs(way) < 0.5f)
             {
                 return;
@@ -132,13 +150,13 @@ public class PlayerController : MonoBehaviour
 
     private void SwitchWeapond(WeapondInfo info)
     {
-        _rightHand.SwitchWeapond(info.RightPrefab, info.RightLocalPosition, info.RightLocalRotation);
-        _leftHand.SwitchWeapond(info.LeftPrefab, info.LeftLocalPosition, info.LeftLocalRotation);
+        rightHand.SwitchWeapond(info.RightPrefab, info.RightLocalPosition, info.RightLocalRotation);
+        leftHand.SwitchWeapond(info.LeftPrefab, info.LeftLocalPosition, info.LeftLocalRotation);
     }
 
     void OnGUI()
     {
-        GUI.Label(new Rect(10, 30, 200, 20), "OptionUI: " + _isOpenedOptionUI.ToString());
-        GUI.Label(new Rect(10, 50, 200, 20), "WeapondUI: " + _isOpenedWeapondUI.ToString());
+        GUI.Label(new Rect(10, 30, 200, 20), "OptionUI: " + isOpenedOptionUI.ToString());
+        GUI.Label(new Rect(10, 50, 200, 20), "WeapondUI: " + isOpenedWeapondUI.ToString());
     }
 }
