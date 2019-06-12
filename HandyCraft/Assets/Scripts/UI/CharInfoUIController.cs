@@ -19,11 +19,11 @@ public class CharInfoUIController : MonoBehaviour
 
     void Awake()
     {
-        name = transform.Find("Name").GetComponent<TMP_Text>();
+        name = GetComponentInChildren<TMP_Text>();
         name.text = transform.root.name;
         info = GetComponentInParent<CharacterInfo>();
         info.OnHpChange += OnHpChange;
-        maxHp = info.GetMaxHp();
+        maxHp = info.MaxHp;
         targetPersentage = 1;
     }
 

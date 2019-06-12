@@ -4,40 +4,55 @@ using UnityEngine;
 
 public class PlayerMotor : MonoBehaviour
 {
-    private Rigidbody _rigibody;
+    private Rigidbody rigibody;
 
-    private Vector3 _bodyMovement;
-    private Vector3 _bodyRotation;
-    private Vector3 _headRotation;
+    private Vector3 bodyMovement;
+    private Vector3 bodyRotation;
+    private float speedMulti;
 
     [SerializeField]
     private float movementSpeed;
     [SerializeField]
+    private float speedUpAmount;
+    [SerializeField]
     private float jumpForce;
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
-        _rigibody = GetComponent<Rigidbody>();
+        rigibody = GetComponent<Rigidbody>();
+        speedMulti = 1f;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        _rigibody.MovePosition(_rigibody.position +  (Quaternion.Euler(_bodyRotation) * _bodyMovement) * movementSpeed * Time.fixedDeltaTime);
+        rigibody.MovePosition(rigibody.position +  (Quaternion.Euler(bodyRotation) * bodyMovement) * movementSpeed * speedMulti * Time.fixedDeltaTime);
     }
 
     public void SetBodyMovement(Vector3 movement)
     {
-        _bodyMovement = movement;
+        bodyMovement = movement;
     }
 
     public void SetBodyRotation(Vector3 rotation)
     {
-        _bodyRotation = rotation;
+        bodyRotation = rotation;
+    }
+
+    public void SpeedUp(bool turnOn)
+    {
+        if (turnOn && bodyMovement.z > 0.5f) // movement between +- 60 degree
+        {
+            speedMulti = speedUpAmount;
+        }
+        else
+        {
+            speedMulti = 1f;
+        }
     }
 
     public void Jump()
     {
-        _rigibody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        rigibody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 }

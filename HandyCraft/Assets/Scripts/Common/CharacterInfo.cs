@@ -8,29 +8,74 @@ public class CharacterInfo : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField]
     private int maxHp;
+    public int MaxHp { get => maxHp; }
+    [SerializeField]
+    private int maxEnergy;
+    public int MaxEnergy { get => maxEnergy; }
 
-    private int currentHP;
+    private int currentHp;
+    public int CurrentHp
+    {
+        get => currentHp;
+        set
+        {
+            currentHp = Mathf.Max(value, 0);
+            OnHpChange?.Invoke(currentHp);
+            if (currentHp == 0)
+            {
+                OnDie?.Invoke();
+            }
+        }
+    }
+    private float currentEnergy;
+    public float CurrentEnergy
+    {
+        get => currentEnergy;
+        set
+        {
+            if (value < currentEnergy) energyTimer = 0f;
+            currentEnergy = Mathf.Clamp(value, 0, MaxEnergy);
+            OnEnergyChange?.Invoke(currentEnergy);
+        }
+    }
 
     public event Action<int> OnHpChange;
+    public event Action<float> OnEnergyChange;
     public event Action OnDie;
+
+    [SerializeField]
+    private float energyRecoverDelay;
+    [SerializeField]
+    private float energyRecoverSpeed;
+    private float energyTimer;
 
     private void Awake()
     {
-        currentHP = maxHp;
+        currentHp = MaxHp;
+        currentEnergy = MaxEnergy;
+        energyTimer = 0f;
     }
 
-    public int GetMaxHp()
+    private void Update()
     {
-        return maxHp;
+        UpdateEnergy();
     }
 
-    public void ReceiveDamage(int damage)
+    private void UpdateEnergy()
     {
-        currentHP = Mathf.Max(currentHP - damage, 0);
-        OnHpChange?.Invoke(currentHP);
-        if (currentHP == 0)
+        if (energyTimer < energyRecoverDelay)
         {
-            OnDie?.Invoke();
+            CurrentEnergy += Time.deltaTime * energyRecoverSpeed;
         }
+        else
+        {
+            energyTimer += Time.deltaTime;
+        }
+    }
+
+    public void Reset()
+    {
+        CurrentHp = MaxHp;
+        CurrentEnergy = 0;
     }
 }

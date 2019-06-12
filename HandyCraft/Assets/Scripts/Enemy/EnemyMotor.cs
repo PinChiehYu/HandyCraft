@@ -23,12 +23,12 @@ public class EnemyMotor : MonoBehaviour
         rbs = GetComponentsInChildren<Rigidbody>();
         currentSpeed = basicSpeed;
         Ragdoll(false);
+        selfRb.isKinematic = false;
     }
 
     private void FixedUpdate()
     {
-        float magnitude = bodyMovement.magnitude;
-        if (magnitude != 0) { 
+        if (bodyMovement.magnitude != 0) { 
             Quaternion rotation = Quaternion.LookRotation(bodyMovement, Vector3.up);
             selfRb.MoveRotation(Quaternion.Slerp(transform.rotation, rotation, rotationSpeed / 100));
             selfRb.MovePosition(selfRb.position + transform.forward * currentSpeed * Time.fixedDeltaTime);
@@ -40,17 +40,18 @@ public class EnemyMotor : MonoBehaviour
         bodyMovement = movement;
     }
 
+    public void SetBodyFacing(Vector3 direction)
+    {
+        transform.Rotate(Quaternion.LookRotation(direction, Vector3.up).eulerAngles);
+        Debug.Log(Quaternion.LookRotation(direction, Vector3.up).eulerAngles.ToString());
+    }
+
     public void SpeedUp(bool state)
     {
         currentSpeed = state ? speedupSpeed : basicSpeed;
     }
 
-    public void AddForce(Vector3 direction, float magnitude)
-    {
-        //rigibody.AddForce(direction * magnitude, ForceMode.Impulse);
-    }
-
-    public void Ragdoll(bool state)
+    private void Ragdoll(bool state)
     {
         foreach (Rigidbody rb in rbs)
         {

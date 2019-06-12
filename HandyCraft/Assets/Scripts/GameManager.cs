@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +12,11 @@ public class GameManager : MonoBehaviour
     private ViveInput viveInput;
     public GlobalPPController PPController;
     public WeapondManager WeapondManager;
+
+    public bool FreezeGame { get; private set; }
+
+    public event Action OnWin;
+    public event Action OnLose;
 
     public static GameManager Instance
     {
@@ -37,6 +44,7 @@ public class GameManager : MonoBehaviour
     {
         viveInput = GetComponent<ViveInput>();
         PPController = GetComponent<GlobalPPController>();
+        FreezeGame = false;
     }
 
     void Start()
@@ -49,8 +57,25 @@ public class GameManager : MonoBehaviour
         return viveInput;
     }
 
-    public void test()
+    public void Win()
     {
-        Debug.Log("TEST");
+        FreezeGame = true;
+        OnWin?.Invoke();
+    }
+
+    public void Lose()
+    {
+        FreezeGame = true;
+        OnLose?.Invoke();
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Exit()
+    {
+        Application.Quit();
     }
 }

@@ -33,6 +33,12 @@ namespace Valve.VR
         
         private static SteamVR_Action_Boolean p_handyCraft_OpenUI;
         
+        private static SteamVR_Action_Boolean p_handyCraft_Grip;
+        
+        private static SteamVR_Action_Boolean p_handyCraft_SwitchLeft;
+        
+        private static SteamVR_Action_Boolean p_handyCraft_SwitchRight;
+        
         private static SteamVR_Action_Vibration p_handyCraft_Haptic;
         
         private static SteamVR_Action_Vector2 p_platformer_Move;
@@ -113,6 +119,30 @@ namespace Valve.VR
             }
         }
         
+        public static SteamVR_Action_Boolean handyCraft_Grip
+        {
+            get
+            {
+                return SteamVR_Actions.p_handyCraft_Grip.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean handyCraft_SwitchLeft
+        {
+            get
+            {
+                return SteamVR_Actions.p_handyCraft_SwitchLeft.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
+        public static SteamVR_Action_Boolean handyCraft_SwitchRight
+        {
+            get
+            {
+                return SteamVR_Actions.p_handyCraft_SwitchRight.GetCopy<SteamVR_Action_Boolean>();
+            }
+        }
+        
         public static SteamVR_Action_Vibration handyCraft_Haptic
         {
             get
@@ -188,6 +218,9 @@ namespace Valve.VR
                     SteamVR_Actions.handyCraft_SkeletonRightHand,
                     SteamVR_Actions.handyCraft_HeadsetOnHead,
                     SteamVR_Actions.handyCraft_OpenUI,
+                    SteamVR_Actions.handyCraft_Grip,
+                    SteamVR_Actions.handyCraft_SwitchLeft,
+                    SteamVR_Actions.handyCraft_SwitchRight,
                     SteamVR_Actions.handyCraft_Haptic,
                     SteamVR_Actions.platformer_Move,
                     SteamVR_Actions.platformer_Jump,
@@ -205,6 +238,9 @@ namespace Valve.VR
                     SteamVR_Actions.handyCraft_SkeletonRightHand,
                     SteamVR_Actions.handyCraft_HeadsetOnHead,
                     SteamVR_Actions.handyCraft_OpenUI,
+                    SteamVR_Actions.handyCraft_Grip,
+                    SteamVR_Actions.handyCraft_SwitchLeft,
+                    SteamVR_Actions.handyCraft_SwitchRight,
                     SteamVR_Actions.platformer_Move,
                     SteamVR_Actions.platformer_Jump,
                     SteamVR_Actions.buggy_Steering,
@@ -224,6 +260,9 @@ namespace Valve.VR
                     SteamVR_Actions.handyCraft_Grab,
                     SteamVR_Actions.handyCraft_HeadsetOnHead,
                     SteamVR_Actions.handyCraft_OpenUI,
+                    SteamVR_Actions.handyCraft_Grip,
+                    SteamVR_Actions.handyCraft_SwitchLeft,
+                    SteamVR_Actions.handyCraft_SwitchRight,
                     SteamVR_Actions.platformer_Jump,
                     SteamVR_Actions.buggy_Brake,
                     SteamVR_Actions.buggy_Reset};
@@ -243,6 +282,9 @@ namespace Valve.VR
                     SteamVR_Actions.handyCraft_Grab,
                     SteamVR_Actions.handyCraft_HeadsetOnHead,
                     SteamVR_Actions.handyCraft_OpenUI,
+                    SteamVR_Actions.handyCraft_Grip,
+                    SteamVR_Actions.handyCraft_SwitchLeft,
+                    SteamVR_Actions.handyCraft_SwitchRight,
                     SteamVR_Actions.platformer_Move,
                     SteamVR_Actions.platformer_Jump,
                     SteamVR_Actions.buggy_Steering,
@@ -261,6 +303,9 @@ namespace Valve.VR
             SteamVR_Actions.p_handyCraft_SkeletonRightHand = ((SteamVR_Action_Skeleton)(SteamVR_Action.Create<SteamVR_Action_Skeleton>("/actions/HandyCraft/in/SkeletonRightHand")));
             SteamVR_Actions.p_handyCraft_HeadsetOnHead = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/HandyCraft/in/HeadsetOnHead")));
             SteamVR_Actions.p_handyCraft_OpenUI = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/HandyCraft/in/OpenUI")));
+            SteamVR_Actions.p_handyCraft_Grip = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/HandyCraft/in/Grip")));
+            SteamVR_Actions.p_handyCraft_SwitchLeft = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/HandyCraft/in/SwitchLeft")));
+            SteamVR_Actions.p_handyCraft_SwitchRight = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/HandyCraft/in/SwitchRight")));
             SteamVR_Actions.p_handyCraft_Haptic = ((SteamVR_Action_Vibration)(SteamVR_Action.Create<SteamVR_Action_Vibration>("/actions/HandyCraft/out/Haptic")));
             SteamVR_Actions.p_platformer_Move = ((SteamVR_Action_Vector2)(SteamVR_Action.Create<SteamVR_Action_Vector2>("/actions/platformer/in/Move")));
             SteamVR_Actions.p_platformer_Jump = ((SteamVR_Action_Boolean)(SteamVR_Action.Create<SteamVR_Action_Boolean>("/actions/platformer/in/Jump")));

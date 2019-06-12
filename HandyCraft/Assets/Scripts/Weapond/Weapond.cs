@@ -19,11 +19,7 @@ public abstract class Weapond : MonoBehaviour, IInteractable
         Fire(velocity, angularVelocity);
     }
 
-    public void Release(Vector3 velocity, Vector3 angularVelocity)
-    {
-    }
-
-    public bool DetachWhenRelease()
+    public bool Release(Vector3 velocity, Vector3 angularVelocity)
     {
         return false;
     }

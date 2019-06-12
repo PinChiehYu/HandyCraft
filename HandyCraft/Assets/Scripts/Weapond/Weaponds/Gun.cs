@@ -13,6 +13,7 @@ public class Gun : Weapond
 
     private Transform firePoint;
     private ParticleSystem[] particles;
+    private AudioSource audio;
 
     [SerializeField]
     private GameObject hole;
@@ -21,12 +22,13 @@ public class Gun : Weapond
     {
         firePoint = transform.Find("FirePoint");
         particles = GetComponentsInChildren<ParticleSystem>();
+        audio = GetComponent<AudioSource>();
     }
 
-    private float timer;
+    private float reloadTimer;
     private void Update()
     {
-        timer += Time.deltaTime;
+        reloadTimer += Time.deltaTime;
     }
 
     public override void ChangeToOtherWeapond()
@@ -41,14 +43,13 @@ public class Gun : Weapond
 
     protected override void Fire(Vector3 velocity, Vector3 angularVelocity)
     {
-        if (timer < reloadTime) return;
+        if (reloadTimer < reloadTime) return;
 
-        RaycastHit hit;
-        if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, shootingRange, hitLayer))
+        if (Physics.Raycast(firePoint.position, firePoint.forward, out RaycastHit hit, shootingRange, hitLayer))
         {
             if (hit.transform.CompareTag("Enemy"))
             {
-                hit.transform.GetComponentInParent<EnemyController>().GetAttack(10, hit.transform, hit.point);
+                hit.transform.GetComponentInParent<IAttackable>().GetAttack(10, hit.transform, transform.position);
             }
             else
             {
@@ -57,7 +58,8 @@ public class Gun : Weapond
         }
 
         TriggerParticle();
-        timer = 0f;
+        audio.Play();
+        reloadTimer = 0f;
     }
 
     private void TriggerParticle()

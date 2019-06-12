@@ -5,24 +5,26 @@ using Valve.VR;
 
 public class ViveInput : MonoBehaviour, IInput
 {
-    private Transform _cameraTransform;
-    private Transform _leftControllerTransform;
-    private Transform _rightControllerTransform;
+    private Transform cameraTransform;
+    private Transform leftControllerTransform;
+    private Transform rightControllerTransform;
 
     public SteamVR_Action_Vector2 moveAction;
     public SteamVR_Action_Boolean UIAction;
     public SteamVR_Action_Boolean shootAction;
+    public SteamVR_Action_Boolean speedUpAction;
+    public SteamVR_Action_Boolean switchLeft, switchRight;
 
     private void Start()
     {
-        _cameraTransform = GameObject.Find("Camera").transform;
-        _leftControllerTransform = GameObject.Find("LeftController").transform;
-        _rightControllerTransform = GameObject.Find("RightController").transform;
+        cameraTransform = GameObject.Find("Camera").transform;
+        leftControllerTransform = GameObject.Find("LeftController").transform;
+        rightControllerTransform = GameObject.Find("RightController").transform;
     }
 
     public Vector3 GetBodyRotation()
     {
-        return new Vector3(0f, _cameraTransform.rotation.eulerAngles.y, 0f);
+        return new Vector3(0f, cameraTransform.rotation.eulerAngles.y, 0f);
     }
 
     public Inputs GetUIOperation()
@@ -51,25 +53,20 @@ public class ViveInput : MonoBehaviour, IInput
 
     public bool GetFire(Inputs hand)
     {
-        if (shootAction.GetState(GetHandInputSources(hand)))
-        {
-            return true;
-        }
-
-        return false;
+        return shootAction.GetState(GetHandInputSources(hand));
     }
 
-    /*
-    public Vector3 GetVelocity(Inputs hand)
+    public bool GetTriggerSpeedUp()
     {
-        return 
+        return speedUpAction.GetState(SteamVR_Input_Sources.LeftHand);
     }
 
-    public Vector3 GetAngularVelocity(Inputs hand)
+    public float GetSwitchDirection()
     {
-
+        if (switchRight.GetState(SteamVR_Input_Sources.LeftHand)) return 1f;
+        else if (switchLeft.GetState(SteamVR_Input_Sources.LeftHand)) return -1f;
+        else return 0f;
     }
-    */
 
     private SteamVR_Input_Sources GetHandInputSources(Inputs hand)
     {
@@ -78,6 +75,6 @@ public class ViveInput : MonoBehaviour, IInput
 
     void OnGUI()
     {
-        GUI.Label(new Rect(10, 10, 200, 20), _cameraTransform.rotation.eulerAngles.ToString());
+        GUI.Label(new Rect(10, 10, 200, 20), cameraTransform.rotation.eulerAngles.ToString());
     }
 }

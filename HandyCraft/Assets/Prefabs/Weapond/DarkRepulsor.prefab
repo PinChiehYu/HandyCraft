@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5915810429025619713}
   - component: {fileID: 239572942298840567}
   - component: {fileID: 6400362948783053189}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: DarkRepulsor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

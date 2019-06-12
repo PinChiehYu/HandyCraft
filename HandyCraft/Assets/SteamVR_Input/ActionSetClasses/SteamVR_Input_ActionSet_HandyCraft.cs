@@ -81,6 +81,30 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Boolean Grip
+        {
+            get
+            {
+                return SteamVR_Actions.handyCraft_Grip;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean SwitchLeft
+        {
+            get
+            {
+                return SteamVR_Actions.handyCraft_SwitchLeft;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean SwitchRight
+        {
+            get
+            {
+                return SteamVR_Actions.handyCraft_SwitchRight;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get

@@ -15,17 +15,19 @@ public class Sword : Weapond
 
     public override void ChangeToThisWeapond()
     {
+        return;
     }
 
     protected override void Fire(Vector3 velocity, Vector3 angularVelocity)
     {
+        return;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponentInParent<EnemyController>().GetAttack(damage, other.transform, transform.position);
+            other.GetComponentInParent<IAttackable>().GetAttack(damage, other.transform, transform.position);
         }
     }
 }

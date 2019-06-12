@@ -6,6 +6,5 @@ public interface IInteractable
 {
     void Pick(Transform hand);
     void Interact(Vector3 velocity, Vector3 angularVelocity);
-    void Release(Vector3 velocity, Vector3 angularVelocity);
-    bool DetachWhenRelease();
+    bool Release(Vector3 velocity, Vector3 angularVelocity);
 }

@@ -21,7 +21,7 @@ public class GlobalPPController : MonoBehaviour
 
     public void BindPlayer(CharacterInfo info)
     {
-        playerMaxHP = info.GetMaxHp();
+        playerMaxHP = info.MaxHp;
         info.OnHpChange += OnPlayerHPChange;
         info.OnDie += OnPlayerDie;
     }

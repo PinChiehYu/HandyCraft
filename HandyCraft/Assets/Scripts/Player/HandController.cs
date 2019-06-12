@@ -139,8 +139,7 @@ public class HandController : MonoBehaviour
     {
         if (holdingObject != null)
         {
-            holdingObject.Release(controllerPose.GetVelocity(), controllerPose.GetAngularVelocity());
-            if (holdingObject.DetachWhenRelease())
+            if (holdingObject.Release(controllerPose.GetVelocity(), controllerPose.GetAngularVelocity()))
             {
                 Debug.Log("Detach Holding Object");
                 holdingObject = null;

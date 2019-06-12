@@ -6,7 +6,7 @@ using UnityEngine;
 public class Axe : Weapond
 {
     private new Rigidbody rigidbody;
-    private Collider collider;
+    private new Collider collider;
 
     private Vector3 localPosition;
     private Vector3 localRotation;
@@ -55,7 +55,6 @@ public class Axe : Weapond
     {
         rigidbody = GetComponent<Rigidbody>();
         collider = GetComponent<Collider>();
-        collider.isTrigger = true;
         isInHand = true;
         isReturning = false;
         isStuck = false;
@@ -101,7 +100,6 @@ public class Axe : Weapond
     {
         transform.parent = null;
         rotatingAxis = transform.right;
-        collider.isTrigger = false;
         rigidbody.useGravity = true;
         rigidbody.isKinematic = false;
         rigidbody.AddForce(velocity * throwingForce, ForceMode.Impulse);
@@ -129,7 +127,6 @@ public class Axe : Weapond
 
     private void ResetAxe()
     {
-        collider.isTrigger = true;
         rigidbody.isKinematic = true;
         transform.SetParent(hand);
         transform.localPosition = localPosition;
@@ -141,8 +138,9 @@ public class Axe : Weapond
         timer = 0f;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
+        Debug.Log(other.name);
         if (!isInHand && !isStuck)
         {
             rigidbody.velocity = Vector3.zero;
@@ -151,21 +149,13 @@ public class Axe : Weapond
 
             if (!isReturning)
             {
-                gameObject.AddComponent<FixedJoint>().connectedBody = collision.collider.GetComponent<Rigidbody>();
+                gameObject.AddComponent<FixedJoint>().connectedBody = other.GetComponent<Rigidbody>();
             }
         }
 
-        if (collision.collider.CompareTag("Enemy"))
-        {
-            collision.collider.GetComponentInParent<EnemyController>().GetAttack(damage, collision.transform, collision.GetContact(0).point);
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
         if (other.CompareTag("Enemy"))
         {
-            other.GetComponentInParent<EnemyController>().GetAttack(damage, other.transform, transform.position);
+            other.GetComponentInParent<IAttackable>().GetAttack(damage, other.transform, transform.position);
         }
     }
 

@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Pistol
   m_EditorClassIdentifier: 
   Name: Pistol
-  RightPrefab: {fileID: 0}
+  RightPrefab: {fileID: 4704867924628273106, guid: 62418d418ef2a234e88884cfab15e267,
+    type: 3}
   LeftPrefab: {fileID: 0}
-  RightLocalPosition: {x: 0, y: 0, z: 0}
-  RightLocalRotation: {x: 0, y: 0, z: 0}
+  RightLocalPosition: {x: 0, y: -0.05, z: -0.04}
+  RightLocalRotation: {x: 58, y: 0, z: 0}
   LeftLocalPosition: {x: 0, y: 0, z: 0}
   LeftLocalRotation: {x: 0, y: 0, z: 0}

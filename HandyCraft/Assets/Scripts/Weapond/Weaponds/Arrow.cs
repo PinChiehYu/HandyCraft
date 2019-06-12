@@ -6,19 +6,17 @@ public class Arrow : MonoBehaviour
 {
     // Start is called before the first frame update
     private new Rigidbody rigidbody;
-    private ParticleSystem trail;
-    private bool _launched;
+    private bool launched;
 
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
-        //trail = GetComponentInChildren<ParticleSystem>();
-        _launched = false;
+        launched = false;
     }
 
     private void FixedUpdate()
     {
-        if (_launched && rigidbody.velocity != Vector3.zero)
+        if (launched && rigidbody.velocity != Vector3.zero)
         {
             rigidbody.rotation = Quaternion.LookRotation(rigidbody.velocity);
         }
@@ -26,7 +24,7 @@ public class Arrow : MonoBehaviour
 
     public void Launch()
     {
-        _launched = true;
+        launched = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,19 +33,27 @@ public class Arrow : MonoBehaviour
         if (other.CompareTag("Enemy") || other.CompareTag("Obstacle"))
         {
             GetStuck(other);
+            Destroy(GetComponent<Collider>());
             if (other.CompareTag("Enemy"))
             {
-                other.GetComponentInParent<EnemyController>().GetAttack(10, other.transform, transform.position);
+                other.GetComponentInParent<IAttackable>().GetAttack(10, other.transform, transform.position);
             }
         }
     }
 
     private void GetStuck(Collider other)
     {
-        _launched = false;
+        launched = false;
         rigidbody.velocity = Vector3.zero;
         GetComponent<Collider>().enabled = false;
         //trail.Stop();
-        gameObject.AddComponent<FixedJoint>().connectedBody = other.GetComponent<Rigidbody>();
+        if (other.GetComponent<Rigidbody>())
+        {
+            gameObject.AddComponent<FixedJoint>().connectedBody = other.GetComponent<Rigidbody>();
+        }
+        else
+        {
+            gameObject.AddComponent<FixedJoint>();
+        }
     }
 }

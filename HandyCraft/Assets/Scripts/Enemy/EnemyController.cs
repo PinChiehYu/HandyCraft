@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : MonoBehaviour, IAttackable
 {
     // Start is called before the first frame update
     [SerializeField]
@@ -14,6 +14,8 @@ public class EnemyController : MonoBehaviour
     private float speedupDelay;
     [SerializeField]
     private float attackCooldown;
+    [SerializeField]
+    private float recoveryTime;
 
     private EnemyMotor motor;
     private CharacterInfo charInfo;
@@ -21,9 +23,13 @@ public class EnemyController : MonoBehaviour
 
     private Transform playerTrans;
 
+    [SerializeField]
     private bool isDetected;
+    [SerializeField]
     private bool isSpeedUp;
+    [SerializeField]
     private bool isAttacking;
+    [SerializeField]
     private bool isDead;
 
     private float attackTimer;
@@ -49,23 +55,31 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        if (isDead) return;
-
-        float distance = Vector3.Distance(playerTrans.position, transform.position);
-        if (distance < attackRange)
+        if (!(isAttacking || isDead))
+        {
+            float distance = Vector3.Distance(playerTrans.position, transform.position);
+            if (distance < attackRange)
+            {
+                motor.SetBodyMovement(Vector3.zero);
+                isDetected = false;
+                isSpeedUp = false;
+                isAttacking = true;
+            }
+            else if (distance < detectRange)
+            {
+                DetectPlayer();
+            }
+            else
+            {
+                isDetected = false;
+                isAttacking = false;
+                CancelSpeedUp();
+                motor.SetBodyMovement(Vector3.zero);
+            }
+        }
+        else if (isAttacking)
         {
             AttackPlayer();
-        }
-        else if (distance < detectRange)
-        {
-            DetectPlayer();
-        }
-        else
-        {
-            isDetected = false;
-            isAttacking = false;
-            CancleSpeedUp();
-            motor.SetBodyMovement(Vector3.zero);
         }
 
         UpdateAnimatorParameter();
@@ -74,8 +88,7 @@ public class EnemyController : MonoBehaviour
     private void AttackPlayer()
     {
         attackTimer += Time.deltaTime;
-        isAttacking = true;
-        CancleSpeedUp();
+        CancelSpeedUp();
         motor.SetBodyMovement(Vector3.zero);
         if (attackTimer > attackCooldown)
         {
@@ -84,7 +97,13 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void CancleSpeedUp()
+    public void FinishAttack()
+    {
+        isAttacking = false;
+        Debug.Log("Finish Attack");
+    }
+
+    private void CancelSpeedUp()
     {
         isSpeedUp = false;
         motor.SpeedUp(false);
@@ -93,9 +112,6 @@ public class EnemyController : MonoBehaviour
 
     private void DetectPlayer()
     {
-        if (isAttacking && animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) return;
-
-        isAttacking = false;
         Vector3 direction = playerTrans.position - transform.position;
         direction.y = 0;
         motor.SetBodyMovement(direction);
@@ -128,19 +144,29 @@ public class EnemyController : MonoBehaviour
 
     public void GetAttack(int damage, Transform bodyPart, Vector3 hitPoint)
     {
-        Vector3 stepBack = transform.position - hitPoint;
+        if (isDead) return;
+
+        Vector3 stepBack = hitPoint - transform.position;
         stepBack.y = 0;
-        stepBack.Normalize();
-        motor.AddForce(stepBack, damage);
-        charInfo.ReceiveDamage(damage);
+        charInfo.CurrentHp -= damage;
+        motor.SetBodyFacing(stepBack);
         animator.SetTrigger("Hit");
     }
 
     private void Dead()
     {
-        motor.Ragdoll(true);
-        animator.enabled = false;
         motor.SetBodyMovement(Vector3.zero);
         isDead = true;
+        animator.SetTrigger("Dead");
+        StartCoroutine(Recover());
+    }
+
+    private IEnumerator Recover()
+    {
+        yield return new WaitForSeconds(recoveryTime);
+        charInfo.Reset();
+        animator.SetTrigger("Recover");
+        yield return new WaitForSeconds(3f);
+        isDead = false;
     }
 }

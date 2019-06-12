@@ -10,10 +10,12 @@ public class Bow : Weapond
     public Animator animator;
     private Vector3 arrowOriginePosition;
     public float animationParam;
+
     public GameObject arrowPrefab;
+    public GameObject ultPrefab;
 
     public float reloadPeriod;
-    public float _maxShootSpeed;
+    public float maxShootSpeed;
     public AudioClip _fireSound;
     private bool isNocked { get { return attachedArrow.gameObject.activeSelf; } }
 
@@ -23,18 +25,18 @@ public class Bow : Weapond
         arrowOriginePosition = attachedArrow.localPosition;
     }
 
-    float time;
-    void Update()
+    float nockTimer;
+    private void Update()
     {
         UpdateBowStretching();
 
         if (!isNocked)
         {
-            time += Time.deltaTime;
+            nockTimer += Time.deltaTime;
         }
-        if (time > reloadPeriod)
+        if (nockTimer > reloadPeriod)
         {
-            time = 0f;
+            nockTimer = 0f;
             NockArrow();
         }
     }
@@ -58,22 +60,29 @@ public class Bow : Weapond
         animator.Play(0, 0, distance / animationParam); // min/max:0.255/-0.225 length:0.48
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void ShootArrow(bool isUlt)
     {
-        if (!isNocked && other.GetComponent<Arrow>())
+        GameObject arrow;
+        if (isUlt)
         {
-            Destroy(other.gameObject);
-            NockArrow();
+            arrow = Instantiate(ultPrefab, transform.TransformPoint(arrowOriginePosition), transform.rotation);
         }
-    }
+        else
+        {
+            arrow = Instantiate(arrowPrefab, transform.TransformPoint(arrowOriginePosition), transform.rotation);
+        }
 
-    public void ShootArrow()
-    {
-        GameObject arrow = Instantiate(arrowPrefab, transform.TransformPoint(arrowOriginePosition), transform.rotation);
         float distance = Vector3.Distance(arrowOriginePosition, attachedArrow.localPosition);
-
-        arrow.GetComponent<Rigidbody>().velocity = arrow.transform.forward * distance * _maxShootSpeed;
-        arrow.GetComponent<Arrow>().Launch();
+        Debug.Log("Arrow Pulling Distance:" + distance.ToString());
+        arrow.GetComponent<Rigidbody>().velocity = arrow.transform.forward * distance * maxShootSpeed;
+        if (isUlt)
+        {
+            arrow.GetComponent<DragonStrike>().Launch();
+        }
+        else
+        {
+            arrow.GetComponent<Arrow>().Launch();
+        }
         //AudioSource.PlayClipAtPoint(_fireSound, transform.position);
 
         UnnockArrow();
