@@ -80,6 +80,7 @@ public class HandController : MonoBehaviour
                 (holdingObject as Weapond).ChangeToThisWeapond();
                 holdingObject.Pick(transform);
             }
+            SetHandModelDisplay(false);
         }
         else
         {

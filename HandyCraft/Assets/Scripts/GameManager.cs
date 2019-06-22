@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public GlobalPPController PPController;
     public WeapondManager WeapondManager;
 
+    public AudioSource BGMAudio;
+    public AudioClip WinBGM;
     public bool FreezeGame { get; private set; }
 
     public event Action OnWin;
@@ -60,6 +62,8 @@ public class GameManager : MonoBehaviour
     public void Win()
     {
         FreezeGame = true;
+        BGMAudio.clip = WinBGM;
+        BGMAudio.Play();
         OnWin?.Invoke();
     }
 

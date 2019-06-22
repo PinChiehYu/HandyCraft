@@ -40,20 +40,15 @@ public class DragonStrike : MonoBehaviour
 
     IEnumerator UltimateCourotine()
     {
-        ThrowArrow();
-
-        //Time for Dragon to summon
         yield return new WaitForSeconds(dragonSummonWait);
 
         Quaternion rotation = transform.rotation;
         GameObject dragon = Instantiate(dragonStrikePrefab, transform.position - transform.forward * dragonSummonOffset, rotation);
         GameObject portal = Instantiate(portalPrefab, transform.position, rotation); // - (transform.forward * 5f) + (Vector3.up * 1.2f)
 
-        //Show Portal
         portal.transform.DOScale(0, .2f).SetEase(Ease.OutSine).From();
         portal.GetComponent<Renderer>().material.DOFloat(1, "_Amount", 4f).SetDelay(8f).OnComplete(() => Destroy(portal));
 
-        //Particles
         ParticleSystem[] portalParticles = portal.GetComponentsInChildren<ParticleSystem>();
         foreach(ParticleSystem p in portalParticles)
         {
@@ -61,30 +56,5 @@ public class DragonStrike : MonoBehaviour
         }
 
         Destroy(gameObject);
-        //Extras
-        /*
-        arrow.GetComponent<TrailRenderer>().emitting = false;
-        arrow.GetComponent<Renderer>().enabled = false;
-        arrow.parent = transform.GetChild(0);
-        arrow.GetComponent<Renderer>().enabled = true;
-        arrow.localPosition = arrowLocalPos;
-        arrow.localEulerAngles = arrowLocalRot;
-        rigidbody.isKinematic = true;
-        arrow.GetComponent<Renderer>().material.SetFloat("_GlowPower", 1);
-        arrow.GetComponent<Renderer>().material.DOFloat(0, "_GlowPower", .5f);
-        */
-    }
-
-    private void ThrowArrow()
-    {
-        //GetComponent<TrailRenderer>().enabled = true;
-
-        //GetComponent<Renderer>().material.SetFloat("_GlowPower", 0);
-
-        ParticleSystem[] particles = GetComponentsInChildren<ParticleSystem>();
-        foreach (ParticleSystem p in particles)
-        {
-            p.Play();
-        }
     }
 }

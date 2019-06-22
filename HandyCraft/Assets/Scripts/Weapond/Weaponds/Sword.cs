@@ -25,7 +25,7 @@ public class Sword : Weapond
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if (other.transform.root.CompareTag("Enemy"))
         {
             other.GetComponentInParent<IAttackable>().GetAttack(damage, other.transform, transform.position);
         }

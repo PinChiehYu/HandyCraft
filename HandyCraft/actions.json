@@ -1,109 +1,114 @@
 {
-  "actions": [
-    {
-      "name": "/actions/HandyCraft/in/InteractUI",
-      "type": "boolean"
-    },
-    {
-      "name": "/actions/HandyCraft/in/Teleport",
-      "type": "vector2"
-    },
-    {
-      "name": "/actions/HandyCraft/in/Grab",
-      "type": "boolean"
-    },
-    {
-      "name": "/actions/HandyCraft/in/Pose",
-      "type": "pose"
-    },
-    {
-      "name": "/actions/HandyCraft/in/SkeletonLeftHand",
-      "type": "skeleton",
-      "skeleton": "/skeleton/hand/left"
-    },
-    {
-      "name": "/actions/HandyCraft/in/SkeletonRightHand",
-      "type": "skeleton",
-      "skeleton": "/skeleton/hand/right"
-    },
-    {
-      "name": "/actions/HandyCraft/in/HeadsetOnHead",
-      "type": "boolean",
-      "requirement": "optional"
-    },
-    {
-      "name": "/actions/HandyCraft/in/OpenUI",
-      "type": "boolean"
-    },
-    {
-      "name": "/actions/HandyCraft/in/Grip",
-      "type": "boolean"
-    },
-    {
-      "name": "/actions/HandyCraft/in/SwitchLeft",
-      "type": "boolean"
-    },
-    {
-      "name": "/actions/HandyCraft/in/SwitchRight",
-      "type": "boolean"
-    },
-    {
-      "name": "/actions/HandyCraft/out/Haptic",
-      "type": "vibration"
-    },
-    {
-      "name": "/actions/platformer/in/Move",
-      "type": "vector2"
-    },
-    {
-      "name": "/actions/platformer/in/Jump",
-      "type": "boolean"
-    },
-    {
-      "name": "/actions/buggy/in/Steering",
-      "type": "vector2"
-    },
-    {
-      "name": "/actions/buggy/in/Throttle",
-      "type": "vector1"
-    },
-    {
-      "name": "/actions/buggy/in/Brake",
-      "type": "boolean"
-    },
-    {
-      "name": "/actions/buggy/in/Reset",
-      "type": "boolean"
-    },
-    {
-      "name": "/actions/mixedreality/in/ExternalCamera",
-      "type": "pose",
-      "requirement": "optional"
-    }
-  ],
-  "action_sets": [
-    {
-      "name": "/actions/HandyCraft",
-      "usage": "single"
-    },
-    {
-      "name": "/actions/platformer",
-      "usage": "single"
-    },
-    {
-      "name": "/actions/buggy",
-      "usage": "single"
-    },
-    {
-      "name": "/actions/mixedreality",
-      "usage": "single"
-    }
-  ],
-  "default_bindings": [],
-  "localization": [
-    {
-      "language_tag": "en_US",
-      "/actions/platformer/in/Jump": "Jump"
-    }
-  ]
+   "action_sets" : [
+      {
+         "name" : "/actions/HandyCraft",
+         "usage" : "single"
+      },
+      {
+         "name" : "/actions/platformer",
+         "usage" : "single"
+      },
+      {
+         "name" : "/actions/buggy",
+         "usage" : "single"
+      },
+      {
+         "name" : "/actions/mixedreality",
+         "usage" : "single"
+      }
+   ],
+   "actions" : [
+      {
+         "name" : "/actions/HandyCraft/in/InteractUI",
+         "type" : "boolean"
+      },
+      {
+         "name" : "/actions/HandyCraft/in/Teleport",
+         "type" : "vector2"
+      },
+      {
+         "name" : "/actions/HandyCraft/in/Grab",
+         "type" : "boolean"
+      },
+      {
+         "name" : "/actions/HandyCraft/in/Pose",
+         "type" : "pose"
+      },
+      {
+         "name" : "/actions/HandyCraft/in/SkeletonLeftHand",
+         "skeleton" : "/skeleton/hand/left",
+         "type" : "skeleton"
+      },
+      {
+         "name" : "/actions/HandyCraft/in/SkeletonRightHand",
+         "skeleton" : "/skeleton/hand/right",
+         "type" : "skeleton"
+      },
+      {
+         "name" : "/actions/HandyCraft/in/HeadsetOnHead",
+         "requirement" : "optional",
+         "type" : "boolean"
+      },
+      {
+         "name" : "/actions/HandyCraft/in/OpenUI",
+         "type" : "boolean"
+      },
+      {
+         "name" : "/actions/HandyCraft/in/Grip",
+         "type" : "boolean"
+      },
+      {
+         "name" : "/actions/HandyCraft/in/SwitchLeft",
+         "type" : "boolean"
+      },
+      {
+         "name" : "/actions/HandyCraft/in/SwitchRight",
+         "type" : "boolean"
+      },
+      {
+         "name" : "/actions/HandyCraft/out/Haptic",
+         "type" : "vibration"
+      },
+      {
+         "name" : "/actions/platformer/in/Move",
+         "type" : "vector2"
+      },
+      {
+         "name" : "/actions/platformer/in/Jump",
+         "type" : "boolean"
+      },
+      {
+         "name" : "/actions/buggy/in/Steering",
+         "type" : "vector2"
+      },
+      {
+         "name" : "/actions/buggy/in/Throttle",
+         "type" : "vector1"
+      },
+      {
+         "name" : "/actions/buggy/in/Brake",
+         "type" : "boolean"
+      },
+      {
+         "name" : "/actions/buggy/in/Reset",
+         "type" : "boolean"
+      },
+      {
+         "name" : "/actions/mixedreality/in/ExternalCamera",
+         "requirement" : "optional",
+         "type" : "pose"
+      }
+   ],
+   "default_bindings" : [
+      {
+         "binding_url" : "application_generated_unity_handycraft_exe_binding_vive_controller.json",
+         "controller_type" : "vive_controller"
+      }
+   ],
+   "localization" : [
+      {
+         "/actions/platformer/in/Jump" : "Jump",
+         "language_tag" : "en_US"
+      }
+   ]
 }

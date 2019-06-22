@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour, IAttackable
 {
@@ -18,18 +19,15 @@ public class EnemyController : MonoBehaviour, IAttackable
     private float recoveryTime;
 
     private EnemyMotor motor;
+    private EnemySoundManager sound;
     private CharacterInfo charInfo;
     private Animator animator;
 
     private Transform playerTrans;
 
-    [SerializeField]
     private bool isDetected;
-    [SerializeField]
     private bool isSpeedUp;
-    [SerializeField]
-    private bool isAttacking;
-    [SerializeField]
+    public bool isAttacking { get; private set; }
     private bool isDead;
 
     private float attackTimer;
@@ -38,6 +36,7 @@ public class EnemyController : MonoBehaviour, IAttackable
     private void Awake()
     {
         motor = GetComponent<EnemyMotor>();
+        sound = GetComponent<EnemySoundManager>();
         charInfo = GetComponent<CharacterInfo>();
         animator = GetComponent<Animator>();
         isDetected = false;
@@ -55,67 +54,71 @@ public class EnemyController : MonoBehaviour, IAttackable
 
     private void Update()
     {
-        if (!(isAttacking || isDead))
-        {
-            float distance = Vector3.Distance(playerTrans.position, transform.position);
-            if (distance < attackRange)
-            {
-                motor.SetBodyMovement(Vector3.zero);
-                isDetected = false;
-                isSpeedUp = false;
-                isAttacking = true;
-            }
-            else if (distance < detectRange)
-            {
-                DetectPlayer();
-            }
-            else
-            {
-                isDetected = false;
-                isAttacking = false;
-                CancelSpeedUp();
-                motor.SetBodyMovement(Vector3.zero);
-            }
-        }
-        else if (isAttacking)
+        if (isDead || GameManager.Instance.FreezeGame) return;
+
+        float distance = Vector3.Distance(playerTrans.position, transform.position);
+        if (distance < attackRange)
         {
             AttackPlayer();
+        }
+        else if (distance < detectRange)
+        {
+            DetectPlayer();
+        }
+        else
+        {
+            isDetected = false;
+            CancelMoving();
         }
 
         UpdateAnimatorParameter();
     }
 
+    private void CancelMoving()
+    {
+        isSpeedUp = false;
+        motor.SpeedUp(false);
+        motor.SetBodyMovement(Vector3.zero);
+        speedUpTimer = 0f;
+    }
+
     private void AttackPlayer()
     {
-        attackTimer += Time.deltaTime;
-        CancelSpeedUp();
-        motor.SetBodyMovement(Vector3.zero);
-        if (attackTimer > attackCooldown)
+        isDetected = false;
+        CancelMoving();
+        if (!isAttacking)
         {
-            animator.SetTrigger("Attack");
-            attackTimer = 0f;
+            attackTimer += Time.deltaTime;
+            if (attackTimer > attackCooldown)
+            {
+                isAttacking = true;
+                animator.SetTrigger("Attack");
+                sound.Attack();
+                attackTimer = 0f;
+            }
         }
     }
 
     public void FinishAttack()
     {
         isAttacking = false;
-        Debug.Log("Finish Attack");
-    }
-
-    private void CancelSpeedUp()
-    {
-        isSpeedUp = false;
-        motor.SpeedUp(false);
-        speedUpTimer = 0f;
     }
 
     private void DetectPlayer()
     {
+        isAttacking = false;
         Vector3 direction = playerTrans.position - transform.position;
         direction.y = 0;
-        motor.SetBodyMovement(direction);
-        CheckSpeedUp();
+        if (Physics.Raycast(transform.position + Vector3.up * 1.3f, direction, out RaycastHit hitInfo, direction.magnitude, LayerMask.GetMask("Obstacle")))
+        {
+            isDetected = false;
+            CancelMoving();
+        }
+        else
+        {
+            CheckSpeedUp();
+            motor.SetBodyMovement(direction);
+        }
     }
 
     private void CheckSpeedUp()
@@ -146,16 +149,20 @@ public class EnemyController : MonoBehaviour, IAttackable
     {
         if (isDead) return;
 
-        Vector3 stepBack = hitPoint - transform.position;
-        stepBack.y = 0;
+        CancelMoving();
+        Vector3 attackDirection = hitPoint - transform.position;
+        attackDirection.y = 0;
         charInfo.CurrentHp -= damage;
-        motor.SetBodyFacing(stepBack);
+        motor.SetBodyFacing(attackDirection);
+        animator.ResetTrigger("Attack");
         animator.SetTrigger("Hit");
     }
 
     private void Dead()
     {
-        motor.SetBodyMovement(Vector3.zero);
+        CancelMoving();
+        isDetected = false;
+        isAttacking = false;
         isDead = true;
         animator.SetTrigger("Dead");
         StartCoroutine(Recover());
@@ -166,7 +173,7 @@ public class EnemyController : MonoBehaviour, IAttackable
         yield return new WaitForSeconds(recoveryTime);
         charInfo.Reset();
         animator.SetTrigger("Recover");
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         isDead = false;
     }
 }

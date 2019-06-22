@@ -16,7 +16,7 @@ public class Bow : Weapond
 
     public float reloadPeriod;
     public float maxShootSpeed;
-    public AudioClip _fireSound;
+    public AudioSource releaseAudio;
     private bool isNocked { get { return attachedArrow.gameObject.activeSelf; } }
 
     private void Awake()
@@ -83,7 +83,7 @@ public class Bow : Weapond
         {
             arrow.GetComponent<Arrow>().Launch();
         }
-        //AudioSource.PlayClipAtPoint(_fireSound, transform.position);
+        releaseAudio.PlayOneShot(releaseAudio.clip, 1f);
 
         UnnockArrow();
     }

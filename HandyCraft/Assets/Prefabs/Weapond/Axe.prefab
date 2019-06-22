@@ -48,7 +48,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!65 &3782654679272898084
 BoxCollider:
@@ -78,7 +78,7 @@ MonoBehaviour:
   returnAngle: 35
   throwingForce: 5
   rotateSpeed: 100
-  damage: 90
+  damage: 25
 --- !u!1001 &2481166526883759013
 PrefabInstance:
   m_ObjectHideFlags: 0

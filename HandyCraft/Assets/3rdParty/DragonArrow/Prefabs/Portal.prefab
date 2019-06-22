@@ -4751,7 +4751,7 @@ ParticleSystem:
 --- !u!199 &7509013419663978295
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -4837,7 +4837,7 @@ Transform:
   m_GameObject: {fileID: 6772534263032068785}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7, y: 7, z: 11}
+  m_LocalScale: {x: 6.3, y: 6.3, z: 9.9}
   m_Children:
   - {fileID: 8959203391101447442}
   - {fileID: 3679977860424247653}
@@ -9583,7 +9583,7 @@ ParticleSystem:
 --- !u!199 &8571742389169739123
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -14393,7 +14393,7 @@ ParticleSystem:
 --- !u!199 &188061704462493539
 ParticleSystemRenderer:
   serializedVersion: 6
-  m_ObjectHideFlags: 2
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}

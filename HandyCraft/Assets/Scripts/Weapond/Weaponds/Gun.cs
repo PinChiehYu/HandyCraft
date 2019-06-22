@@ -5,15 +5,18 @@ using UnityEngine;
 public class Gun : Weapond
 {
     [SerializeField]
-    private float shootingRange;
+    private float shootingRange = 10f;
     [SerializeField]
     private LayerMask hitLayer;
     [SerializeField]
-    private float reloadTime;
+    private float reloadTime = 5f;
 
     private Transform firePoint;
     private ParticleSystem[] particles;
-    private AudioSource audio;
+    [SerializeField]
+    private AudioSource shootAudio;
+
+    public int damage;
 
     [SerializeField]
     private GameObject hole;
@@ -22,7 +25,6 @@ public class Gun : Weapond
     {
         firePoint = transform.Find("FirePoint");
         particles = GetComponentsInChildren<ParticleSystem>();
-        audio = GetComponent<AudioSource>();
     }
 
     private float reloadTimer;
@@ -47,9 +49,9 @@ public class Gun : Weapond
 
         if (Physics.Raycast(firePoint.position, firePoint.forward, out RaycastHit hit, shootingRange, hitLayer))
         {
-            if (hit.transform.CompareTag("Enemy"))
+            if (hit.transform.root.CompareTag("Enemy"))
             {
-                hit.transform.GetComponentInParent<IAttackable>().GetAttack(10, hit.transform, transform.position);
+                hit.transform.GetComponentInParent<IAttackable>().GetAttack(damage, hit.transform, transform.position);
             }
             else
             {
@@ -58,7 +60,7 @@ public class Gun : Weapond
         }
 
         TriggerParticle();
-        audio.Play();
+        shootAudio.PlayOneShot(shootAudio.clip, 1f);
         reloadTimer = 0f;
     }
 

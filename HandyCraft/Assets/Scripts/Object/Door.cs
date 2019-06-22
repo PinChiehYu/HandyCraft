@@ -5,21 +5,20 @@ using UnityEngine;
 public class Door : MonoBehaviour, IInteractable
 {
     public Transform root;
+    [SerializeField]
     private bool isOpen;
     private bool isProcessing;
-    IEnumerator process;
+    private IEnumerator process;
+    private AudioSource audio;
 
-    public float openAngle;
-    public float closeAngle;
     public float rotateSpeed;
 
     private void Awake()
     {
         isOpen = false;
         isProcessing = false;
-        openAngle = (openAngle + 360f) % 360;
-        closeAngle = (closeAngle + 360f) % 360;
         process = SwitchDoor(false);
+        audio = GetComponent<AudioSource>();
     }
 
     public void Pick(Transform hand)
@@ -30,6 +29,7 @@ public class Door : MonoBehaviour, IInteractable
         StopCoroutine(process);
         process = SwitchDoor(isOpen);
         StartCoroutine(process);
+        audio.PlayOneShot(audio.clip, 1f);
     }
 
     public void Interact(Vector3 velocity, Vector3 angularVelocity)
@@ -44,12 +44,8 @@ public class Door : MonoBehaviour, IInteractable
 
     private IEnumerator SwitchDoor(bool open)
     {
-        float yRotate = root.rotation.eulerAngles.y;
-        float targetAngle = open ? openAngle : closeAngle;
-        float diffAngle1 = (yRotate - targetAngle + 360f) % 360f;
-        float diffAngle2 = (targetAngle - yRotate + 360f) % 360f;
-        float remain = diffAngle1 < diffAngle2 ? diffAngle1 : diffAngle2;
-        float sign = remain == diffAngle1 ? -1f : 1f;
+        float remain = 90f;
+        float sign = isOpen ? -1f : 1f;
 
         isProcessing = true;
         while (remain - rotateSpeed * Time.deltaTime > 0f)

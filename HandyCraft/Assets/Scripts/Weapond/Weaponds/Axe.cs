@@ -147,15 +147,16 @@ public class Axe : Weapond
             isStuck = true;
             coolDown = 0f;
 
-            if (!isReturning)
+            if (!isReturning && !GetComponent<FixedJoint>())
             {
                 gameObject.AddComponent<FixedJoint>().connectedBody = other.GetComponent<Rigidbody>();
             }
         }
 
-        if (other.CompareTag("Enemy"))
+        if (other.transform.root.CompareTag("Enemy"))
         {
-            other.GetComponentInParent<IAttackable>().GetAttack(damage, other.transform, transform.position);
+            int resultDamage = !isInHand ? damage * 2 : damage;
+            other.GetComponentInParent<IAttackable>().GetAttack(resultDamage, other.transform, transform.position);
         }
     }
 

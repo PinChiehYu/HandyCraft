@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,24 +9,32 @@ public class PlayerMotor : MonoBehaviour
 
     private Vector3 bodyMovement;
     private Vector3 bodyRotation;
-    private float speedMulti;
+    private bool isSpeedUp;
 
     [SerializeField]
     private float movementSpeed;
     [SerializeField]
     private float speedUpAmount;
-    [SerializeField]
-    private float jumpForce;
+
+    public PlayerState State {
+        get
+        {
+            if (isSpeedUp && bodyMovement.magnitude > 0f) return PlayerState.Running;
+            else if (bodyMovement.magnitude > 0f) return PlayerState.Walking;
+            else return PlayerState.Idle;
+        }
+        private set { }
+    }
 
     private void Awake()
     {
         rigibody = GetComponent<Rigidbody>();
-        speedMulti = 1f;
+        isSpeedUp = false;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
+        float speedMulti = isSpeedUp ? speedUpAmount : 1f;
         rigibody.MovePosition(rigibody.position +  (Quaternion.Euler(bodyRotation) * bodyMovement) * movementSpeed * speedMulti * Time.fixedDeltaTime);
     }
 
@@ -41,18 +50,6 @@ public class PlayerMotor : MonoBehaviour
 
     public void SpeedUp(bool turnOn)
     {
-        if (turnOn && bodyMovement.z > 0.5f) // movement between +- 60 degree
-        {
-            speedMulti = speedUpAmount;
-        }
-        else
-        {
-            speedMulti = 1f;
-        }
-    }
-
-    public void Jump()
-    {
-        rigibody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        isSpeedUp = (turnOn && bodyMovement.z > 0.5f);
     }
 }

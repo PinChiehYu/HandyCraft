@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    // Start is called before the first frame update
     private new Rigidbody rigidbody;
     private bool launched;
+    public int damage = 10;
+
+    public AudioSource hitAudio;
 
     private void Awake()
     {
@@ -30,14 +32,15 @@ public class Arrow : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Arrow Hit:" + other.name);
-        if (other.CompareTag("Enemy") || other.CompareTag("Obstacle"))
+        if (other.transform.root.CompareTag("Enemy") || other.CompareTag("Obstacle"))
         {
             GetStuck(other);
             Destroy(GetComponent<Collider>());
-            if (other.CompareTag("Enemy"))
+            if (other.transform.root.CompareTag("Enemy"))
             {
-                other.GetComponentInParent<IAttackable>().GetAttack(10, other.transform, transform.position);
+                other.GetComponentInParent<IAttackable>().GetAttack(damage, other.transform, transform.position);
             }
+            hitAudio.PlayOneShot(hitAudio.clip, 0.3f);
         }
     }
 
@@ -46,7 +49,6 @@ public class Arrow : MonoBehaviour
         launched = false;
         rigidbody.velocity = Vector3.zero;
         GetComponent<Collider>().enabled = false;
-        //trail.Stop();
         if (other.GetComponent<Rigidbody>())
         {
             gameObject.AddComponent<FixedJoint>().connectedBody = other.GetComponent<Rigidbody>();

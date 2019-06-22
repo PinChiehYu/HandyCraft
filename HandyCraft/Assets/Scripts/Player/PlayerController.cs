@@ -32,9 +32,6 @@ public class PlayerController : MonoBehaviour
     private bool isOpenedOptionUI;
     private bool isOpenedWeapondUI;
 
-    private float maxStrength;
-    private float strength;
-
     private void Awake()
     {
         motor = GetComponent<PlayerMotor>();
@@ -43,7 +40,6 @@ public class PlayerController : MonoBehaviour
 
         isOpenedOptionUI = false;
         isOpenedWeapondUI = false;
-        text.text = "Pause";
     }
 
     private void Start()
@@ -56,7 +52,6 @@ public class PlayerController : MonoBehaviour
         charInfo.OnDie += Dead;
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (GameManager.Instance.FreezeGame) return;
@@ -79,12 +74,23 @@ public class PlayerController : MonoBehaviour
     {
         motor.SetBodyMovement(input.GetMovement());
         motor.SetBodyRotation(input.GetBodyRotation());
-        motor.SpeedUp(input.GetTriggerSpeedUp());
 
-        if (input.GetJump() && Physics.CheckBox(foot.position, new Vector3(0.25f, 0.05f, 0.25f), Quaternion.identity, groundMask))
+        TriggerSpeedUp();
+    }
+
+    private void TriggerSpeedUp()
+    {
+        if (input.GetTriggerSpeedUp())
         {
-            motor.Jump();
+            charInfo.CurrentEnergy -= Time.deltaTime;
+            if (charInfo.CurrentEnergy > 0)
+            {
+                motor.SpeedUp(true);
+                return;
+            }
         }
+
+        motor.SpeedUp(false);
     }
 
     private void StopMovement()
@@ -113,6 +119,7 @@ public class PlayerController : MonoBehaviour
             {
                 optionUICanvas.SetActive(false);
                 isOpenedOptionUI = false;
+                UIPointer.SetActive(false);
             }
 
             isOpenedWeapondUI = !isOpenedWeapondUI;
@@ -161,8 +168,8 @@ public class PlayerController : MonoBehaviour
     private float invincibleTimer;
     public void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.collider.name);
-        if (collision.collider.CompareTag("Enemy") && invincibleTimer > 2f)
+        if (invincibleTimer > 1.5f && collision.transform.root.CompareTag("Enemy")
+            && collision.gameObject.layer != LayerMask.GetMask("Body") && collision.transform.root.GetComponent<EnemyController>().isAttacking)
         {
             GetAttack();
             invincibleTimer = 0f;
@@ -184,7 +191,8 @@ public class PlayerController : MonoBehaviour
         motor.SetBodyMovement(Vector3.zero);
         weapondUICanvas.SetActive(false);
         optionUICanvas.SetActive(true);
-        text.text = "Lose!";
+        text.text = "Died!";
+        rightHand.SwitchWeapond(null, Vector3.zero, Vector3.zero);
         UIPointer.SetActive(true);
     }
 

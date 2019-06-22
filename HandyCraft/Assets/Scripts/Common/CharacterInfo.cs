@@ -7,11 +7,11 @@ public class CharacterInfo : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField]
-    private int maxHp;
+    private int maxHp = 100;
     public int MaxHp { get => maxHp; }
     [SerializeField]
-    private int maxEnergy;
-    public int MaxEnergy { get => maxEnergy; }
+    private float maxEnergy = 5f;
+    public float MaxEnergy { get => maxEnergy; }
 
     private int currentHp;
     public int CurrentHp
@@ -63,7 +63,7 @@ public class CharacterInfo : MonoBehaviour
 
     private void UpdateEnergy()
     {
-        if (energyTimer < energyRecoverDelay)
+        if (energyTimer > energyRecoverDelay)
         {
             CurrentEnergy += Time.deltaTime * energyRecoverSpeed;
         }

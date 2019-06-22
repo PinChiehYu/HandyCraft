@@ -31,11 +31,11 @@ public class ViveInput : MonoBehaviour, IInput
     {
         if (UIAction.GetStateDown(SteamVR_Input_Sources.LeftHand))
         {
-            return Inputs.OpenWeapondUI;
+            return Inputs.OpenOptionUI;
         }
         else if (UIAction.GetStateDown(SteamVR_Input_Sources.RightHand))
         {
-            return Inputs.OpenOptionUI;
+            return Inputs.OpenWeapondUI;
         }
 
         return Inputs.None;
@@ -63,18 +63,13 @@ public class ViveInput : MonoBehaviour, IInput
 
     public float GetSwitchDirection()
     {
-        if (switchRight.GetState(SteamVR_Input_Sources.LeftHand)) return 1f;
-        else if (switchLeft.GetState(SteamVR_Input_Sources.LeftHand)) return -1f;
+        if (switchRight.GetState(SteamVR_Input_Sources.RightHand)) return 1f;
+        else if (switchLeft.GetState(SteamVR_Input_Sources.RightHand)) return -1f;
         else return 0f;
     }
 
     private SteamVR_Input_Sources GetHandInputSources(Inputs hand)
     {
         return hand == Inputs.RightHand ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand;
-    }
-
-    void OnGUI()
-    {
-        GUI.Label(new Rect(10, 10, 200, 20), cameraTransform.rotation.eulerAngles.ToString());
     }
 }
